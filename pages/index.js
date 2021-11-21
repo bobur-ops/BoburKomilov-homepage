@@ -36,7 +36,7 @@ const Page = () => {
             <Heading as="h2" variant="page-title">
               Bobur Komilov
             </Heading>
-            <p>Digital Craftzman ( Developer / Designer )</p>
+            <p>Front End Developer</p>
           </Box>
           <Box
             flexShrink={0}
@@ -62,15 +62,10 @@ const Page = () => {
             Work
           </Heading>
           <Paragraph>
-            Bobur is a freelance and a full-stack developer based in Uzbekistan
-            with a passion for building digital ae MRM Mt aOR launching
-            products, from planning and designing all the way to solving
+            Bobur is a freelancer based in Uzbekistan
+            who loves to create web-sites, from planning and designing all the way to solving
             real-life problems with code. When not online, he loves hanging out
-            with his camera. Currently he is living off his own product called{' '}
-            <NextLink href="/works/inkdrop">
-              <Link>Inkdrop</Link>
-            </NextLink>
-            .
+            with his camera.
           </Paragraph>
           <Box align="center" my={4}>
             <NextLink href="/works">
@@ -133,7 +128,7 @@ const Page = () => {
                   colorScheme="teal"
                   leftIcon={<Icon as={IoLogoInstagram} />}
                 >
-                  @bobur-ops
+                  @bobur_komilov
                 </Button>
               </Link>
             </ListItem>
