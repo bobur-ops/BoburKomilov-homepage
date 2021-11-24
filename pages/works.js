@@ -8,6 +8,7 @@ import thumbCryptoverse from '../public/images/work/crypto_1.png'
 import thumbCms_blog from '../public/images/work/CMS_1.png'
 import thumbSearch from '../public/images/work/search_1.png'
 import thumbSlider from '../public/images/work/slider.png'
+import thumbVideoChat from '../public/images/work/video-chat.png'
 
 
 
@@ -44,6 +45,16 @@ const Works = () => {
               thumbnail={thumbSearch}
             >
               Analog of Goggle. My own Search Engine
+            </WorkGridItem>
+          </Section>
+
+          <Section delay={0.1}>
+            <WorkGridItem
+              id="video-chat"
+              title="Video Chat"
+              thumbnail={thumbVideoChat}
+            >
+              A Video Chat application.
             </WorkGridItem>
           </Section>
         </SimpleGrid>
