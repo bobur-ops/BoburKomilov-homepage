@@ -3,16 +3,11 @@ import Section from '../components/section'
 import Layout from '../components/layouts/article'
 import { WorkGridItem } from '../components/grid-item'
 
-
 import thumbCryptoverse from '../public/images/work/crypto_1.png'
 import thumbCms_blog from '../public/images/work/CMS_1.png'
 import thumbSearch from '../public/images/work/search_1.png'
 import thumbSlider from '../public/images/work/slider.png'
-import thumbVideoChat from '../public/images/work/video-chat.png'
-
-
-
-
+import thumbEstate from '../public/images/work/estate-1.png'
 
 const Works = () => {
   return (
@@ -24,8 +19,13 @@ const Works = () => {
 
         <SimpleGrid columns={[1, 1, 2]} gap={6}>
           <Section>
-            <WorkGridItem id="cryptoverse" title="Cryptoverse" thumbnail={thumbCryptoverse}>
-              An application to monitor cryptocurrencies. Also can find latest CryptoNews
+            <WorkGridItem
+              id="cryptoverse"
+              title="Cryptoverse"
+              thumbnail={thumbCryptoverse}
+            >
+              An application to monitor cryptocurrencies. Also can find latest
+              CryptoNews
             </WorkGridItem>
           </Section>
           <Section>
@@ -50,11 +50,12 @@ const Works = () => {
 
           <Section delay={0.1}>
             <WorkGridItem
-              id="video-chat"
-              title="Video Chat"
-              thumbnail={thumbVideoChat}
+              id="realtor-estate"
+              title="Realtor Real Estate"
+              thumbnail={thumbEstate}
             >
-              A Video Chat application.
+              An application with information about Real Estate from all over
+              the world.
             </WorkGridItem>
           </Section>
         </SimpleGrid>

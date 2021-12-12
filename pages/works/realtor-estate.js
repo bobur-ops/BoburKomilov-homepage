@@ -8,25 +8,28 @@ const Work = () => (
   <Layout title="Cryptoverse">
     <Container>
       <Title>
-        Video Chat <Badge>2021-</Badge>
+        Realtor Estate <Badge>2021-</Badge>
       </Title>
       <P>
-        A Video Chat Application.
+        An application with information about Real Estate from all over the
+        world.
       </P>
       <List ml={4} my={4}>
         <ListItem>
           <Meta>Website</Meta>
-          <Link href="https://video-chat-v.netlify.app/">
-            https://video-chat-v.netlify.app/<ExternalLinkIcon mx="2px" />
+          <Link href="https://realtor-estate.vercel.app/">
+            https://realtor-estate.vercel.app/
+            <ExternalLinkIcon mx="2px" />
           </Link>
         </ListItem>
         <ListItem>
           <Meta>Stack</Meta>
-          <span>React, NodeJS, SocketIO </span>
+          <span>React, NextJS, Chakra-ui </span>
         </ListItem>
       </List>
 
-      <WorkImage src="/images/work/video-chat.png" alt="Cryptovers" />
+      <WorkImage src="/images/work/estate-1.png" alt="Real Estate" />
+      <WorkImage src="/images/work/estate-2.png" alt="Real Estate" />
     </Container>
   </Layout>
 )
