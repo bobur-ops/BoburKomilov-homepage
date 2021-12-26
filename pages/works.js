@@ -8,6 +8,7 @@ import thumbCms_blog from '../public/images/work/CMS_1.png'
 import thumbSearch from '../public/images/work/search_1.png'
 import thumbSlider from '../public/images/work/slider.png'
 import thumbEstate from '../public/images/work/estate-1.png'
+import thumbShareme from '../public/images/work/shareme-1.png'
 
 const Works = () => {
   return (
@@ -56,6 +57,12 @@ const Works = () => {
             >
               An application with information about Real Estate from all over
               the world.
+            </WorkGridItem>
+          </Section>
+          <Section delay={0.1}>
+            <WorkGridItem id="shareme" title="Shareme" thumbnail={thumbShareme}>
+              A blog application like Unsplash, where you can share or search
+              for images
             </WorkGridItem>
           </Section>
         </SimpleGrid>

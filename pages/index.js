@@ -62,8 +62,8 @@ const Page = () => {
             Work
           </Heading>
           <Paragraph>
-            Bobur is a freelancer based in Uzbekistan
-            who loves to create web-sites, from planning and designing all the way to solving
+            Bobur is a freelancer based in Uzbekistan who loves to create
+            web-sites, from planning and designing all the way to solving
             real-life problems with code. When not online, he loves hanging out
             with his camera.
           </Paragraph>
