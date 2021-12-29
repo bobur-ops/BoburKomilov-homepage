@@ -34,8 +34,8 @@ const Work = () => (
       </List>
 
       <SimpleGrid columns={2} gap={2}>
-        <WorkImage src="/images/work/krypt_1" alt="krpyt" />
-        <WorkImage src="/images/work/krypt_2" alt="krypt" />
+        <WorkImage src="/images/work/krypt_1.png" alt="krpyt" />
+        <WorkImage src="/images/work/krypt_2.png" alt="krypt" />
       </SimpleGrid>
     </Container>
   </Layout>
