@@ -9,6 +9,7 @@ import thumbSearch from '../public/images/work/search_1.png'
 import thumbSlider from '../public/images/work/slider.png'
 import thumbEstate from '../public/images/work/estate-1.png'
 import thumbShareme from '../public/images/work/shareme_1.png'
+import thumbKrypt from '../public/images/work/krypt_1.png'
 
 const Works = () => {
   return (
@@ -64,6 +65,16 @@ const Works = () => {
             <WorkGridItem id="shareme" title="Shareme" thumbnail={thumbShareme}>
               A blog application like Unsplash, where you can share or search
               for images
+            </WorkGridItem>
+          </Section>
+
+          <Section delay={0.1}>
+            <WorkGridItem
+              id="krypt"
+              title="Kryptomastery"
+              thumbnail={thumbKrypt}
+            >
+              A WEB 3.0 Blockchain application with real transactions on ETH.
             </WorkGridItem>
           </Section>
         </SimpleGrid>
