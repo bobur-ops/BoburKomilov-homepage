@@ -9,6 +9,12 @@ const Main = ({ children, router }) => {
     <Box as="main" pb={8}>
       <Head>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta keywords="bobur, bobur-komilov, bobur-komilov-homepage, frontend, developer, nextjs" />
+        <meta
+          name="description"
+          content="Front-end developer's portfolio website, where you can find information how to contact and latest works"
+        />
+        <meta charset="UTF-8" />
         <title>Bobur Komilov - Homepage</title>
       </Head>
 
