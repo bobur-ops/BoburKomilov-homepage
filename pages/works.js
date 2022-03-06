@@ -10,6 +10,7 @@ import thumbSlider from '../public/images/work/slider.png'
 import thumbEstate from '../public/images/work/estate-1.png'
 import thumbShareme from '../public/images/work/shareme_1.png'
 import thumbKrypt from '../public/images/work/krypt_1.png'
+import thumbRest from '../public/images/work/rest1.png'
 
 const Works = () => {
   return (
@@ -75,6 +76,12 @@ const Works = () => {
               thumbnail={thumbKrypt}
             >
               A WEB 3.0 Blockchain application with real transactions on ETH.
+            </WorkGridItem>
+          </Section>
+
+          <Section delay={0.1}>
+            <WorkGridItem id="rest" title="Restaurant" thumbnail={thumbRest}>
+              A responsive UX UI design of Gericht Restaurant
             </WorkGridItem>
           </Section>
         </SimpleGrid>

@@ -5,31 +5,32 @@ import P from '../../components/paragraph'
 import Layout from '../../components/layouts/article'
 
 const Work = () => (
-  <Layout title="realtor estate">
+  <Layout title="Restaurant">
     <Container>
       <Title>
-        Realtor Estate <Badge>2021-</Badge>
+        Gericht Restaurant <Badge>2021-</Badge>
       </Title>
-      <P>
-        An application with information about Real Estate from all over the
-        world.
-      </P>
+      <P>A responsive UX UI design of Gericht Restaurant</P>
       <List ml={4} my={4}>
         <ListItem>
           <Meta>Website</Meta>
-          <Link href="https://realtor-estate.vercel.app/">
-            https://realtor-estate.vercel.app/
+          <Link href="https://gerichtrestaurant-app.netlify.app/">
+            https://gerichtrestaurant-app.netlify.app/
             <ExternalLinkIcon mx="2px" />
           </Link>
         </ListItem>
         <ListItem>
+          <Meta>Platform</Meta>
+          <span>Windows/macOS/Linux/iOS/Android</span>
+        </ListItem>
+        <ListItem>
           <Meta>Stack</Meta>
-          <span>React, NextJS, Chakra-ui </span>
+          <span>React, </span>
         </ListItem>
       </List>
 
-      <WorkImage src="/images/work/estate-1.png" alt="Real Estate" />
-      <WorkImage src="/images/work/estate-2.png" alt="Real Estate" />
+      <WorkImage src="/images/work/rest1.png" alt="Rest" />
+      <WorkImage src="/images/work/rest2.png" alt="Rest" />
     </Container>
   </Layout>
 )
