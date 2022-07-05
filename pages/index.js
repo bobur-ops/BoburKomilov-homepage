@@ -17,6 +17,7 @@ import Section from '../components/section'
 import Paragraph from '../components/paragraph'
 import { BioSection, BioYear } from '../components/bio'
 import { IoLogoInstagram, IoLogoGithub } from 'react-icons/io5'
+import { AiFillFilePdf } from 'react-icons/ai'
 
 const Page = () => {
   return (
@@ -129,6 +130,17 @@ const Page = () => {
                   leftIcon={<Icon as={IoLogoInstagram} />}
                 >
                   @bobur_komilov
+                </Button>
+              </Link>
+            </ListItem>
+            <ListItem>
+              <Link href="../public/resume.pdf" download>
+                <Button
+                  variant="ghost"
+                  colorScheme="teal"
+                  leftIcon={<Icon as={AiFillFilePdf} />}
+                >
+                  Download Resume
                 </Button>
               </Link>
             </ListItem>

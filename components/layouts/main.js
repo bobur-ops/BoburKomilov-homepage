@@ -14,7 +14,7 @@ const Main = ({ children, router }) => {
           name="description"
           content="Front-end developer's portfolio website, where you can find information how to contact and latest works"
         />
-        <meta charset="UTF-8" />
+        <meta charSet="UTF-8" />
         <title>Bobur Komilov - Homepage</title>
       </Head>
 
