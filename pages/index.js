@@ -134,7 +134,7 @@ const Page = () => {
               </Link>
             </ListItem>
             <ListItem>
-              <Link href="../public/resume.pdf" download>
+              <Link href="/resume.pdf" download>
                 <Button
                   variant="ghost"
                   colorScheme="teal"
