@@ -17,7 +17,6 @@ import Section from '../components/section'
 import Paragraph from '../components/paragraph'
 import { BioSection, BioYear } from '../components/bio'
 import { IoLogoInstagram, IoLogoGithub } from 'react-icons/io5'
-import { AiFillFilePdf } from 'react-icons/ai'
 
 const Page = () => {
   return (
@@ -63,7 +62,7 @@ const Page = () => {
             Work
           </Heading>
           <Paragraph>
-            Bobur is a freelancer based in Uzbekistan who loves to create
+            Bobur is a developer based in Uzbekistan who loves to create
             web-sites, from planning and designing all the way to solving
             real-life problems with code. When not online, he loves hanging out
             with his camera.
@@ -91,7 +90,11 @@ const Page = () => {
           </BioSection>
           <BioSection>
             <BioYear>2021</BioYear>
-            Began working as a freelancer
+            Axie Labs
+          </BioSection>
+          <BioSection>
+            <BioYear>2022</BioYear>
+            ODMSoft
           </BioSection>
         </Section>
         <Section delay={0.3}>
@@ -130,17 +133,6 @@ const Page = () => {
                   leftIcon={<Icon as={IoLogoInstagram} />}
                 >
                   @bobur_komilov
-                </Button>
-              </Link>
-            </ListItem>
-            <ListItem>
-              <Link href="/resume.pdf" download>
-                <Button
-                  variant="ghost"
-                  colorScheme="teal"
-                  leftIcon={<Icon as={AiFillFilePdf} />}
-                >
-                  Download Resume
                 </Button>
               </Link>
             </ListItem>

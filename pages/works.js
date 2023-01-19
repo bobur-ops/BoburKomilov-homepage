@@ -3,12 +3,12 @@ import Section from '../components/section'
 import Layout from '../components/layouts/article'
 import { WorkGridItem } from '../components/grid-item'
 import thumbCms_blog from '../public/images/work/CMS_1.png'
-import thumbSearch from '../public/images/work/search_1.png'
 import thumbSlider from '../public/images/work/slider.png'
 import thumbEstate from '../public/images/work/estate-1.png'
 import thumbShareme from '../public/images/work/shareme_1.png'
 import thumbKrypt from '../public/images/work/krypt_1.png'
 import thumbRest from '../public/images/work/rest1.png'
+import thumbSameAim from '../public/images/work/sameaim_1.png'
 
 const Works = () => {
   return (
@@ -26,16 +26,6 @@ const Works = () => {
               thumbnail={thumbCms_blog}
             >
               A Blog app made with GraphCMS, GraphQL
-            </WorkGridItem>
-          </Section>
-
-          <Section delay={0.1}>
-            <WorkGridItem
-              id="search"
-              title="Search-Engine"
-              thumbnail={thumbSearch}
-            >
-              Analog of Goggle. My own Search Engine
             </WorkGridItem>
           </Section>
 
@@ -70,6 +60,12 @@ const Works = () => {
           <Section delay={0.1}>
             <WorkGridItem id="rest" title="Restaurant" thumbnail={thumbRest}>
               A responsive UX UI design of Gericht Restaurant
+            </WorkGridItem>
+          </Section>
+
+          <Section delay={0.1}>
+            <WorkGridItem id="sameaim" title="Sameaim" thumbnail={thumbSameAim}>
+              Social Media app for creating and joining different clubs
             </WorkGridItem>
           </Section>
         </SimpleGrid>
