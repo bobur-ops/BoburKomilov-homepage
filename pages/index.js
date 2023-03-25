@@ -124,7 +124,7 @@ const Page = () => {
             </ListItem>
             <ListItem>
               <Link
-                href="https://www.instagram.com/_bobur_x16_"
+                href="https://www.instagram.com/http.bobur"
                 target="_blank"
               >
                 <Button
@@ -132,7 +132,7 @@ const Page = () => {
                   colorScheme="teal"
                   leftIcon={<Icon as={IoLogoInstagram} />}
                 >
-                  @bobur_komilov
+                  @http.bobur
                 </Button>
               </Link>
             </ListItem>
