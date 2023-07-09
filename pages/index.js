@@ -17,8 +17,15 @@ import Section from '../components/section'
 import Paragraph from '../components/paragraph'
 import { BioSection, BioYear } from '../components/bio'
 import { IoLogoInstagram, IoLogoGithub } from 'react-icons/io5'
+import { AiFillLinkedin } from 'react-icons/ai'
+import { GrDocumentPdf } from 'react-icons/gr'
 
 const Page = () => {
+  const handleDownload = () => {
+    const downloadUrl = '/cv.pdf'
+    window.open(downloadUrl, '_blank')
+  }
+
   return (
     <Layout>
       <Container>
@@ -62,10 +69,10 @@ const Page = () => {
             Work
           </Heading>
           <Paragraph>
-            Bobur is a developer based in Uzbekistan who loves to create
-            web-sites, from planning and designing all the way to solving
-            real-life problems with code. When not online, he loves hanging out
-            with his camera.
+            A highly skilled and motivated front-end developer with 2 years of
+            experience in creating visually appealing and user-friendly
+            websites. Proficient in Nuxt/Vue and Next/React, with a strong
+            understanding of responsive design principles and best practices.
           </Paragraph>
           <Box align="center" my={4}>
             <NextLink href="/works">
@@ -81,14 +88,6 @@ const Page = () => {
             Bio
           </Heading>
           <BioSection>
-            <BioYear>2005</BioYear>
-            Born in Ferghana, Uzbekistan.
-          </BioSection>
-          <BioSection>
-            <BioYear>2020</BioYear>
-            Started learning web-developing by self-study
-          </BioSection>
-          <BioSection>
             <BioYear>2021</BioYear>
             Axie Labs
           </BioSection>
@@ -96,14 +95,16 @@ const Page = () => {
             <BioYear>2022</BioYear>
             ODMSoft
           </BioSection>
+          <BioSection>
+            <BioYear>2022</BioYear>
+            MasterPlast
+          </BioSection>
         </Section>
         <Section delay={0.3}>
           <Heading as="h3" variant="section-title">
             I ♥
           </Heading>
-          <Paragraph>
-            Art, Music, Football, Motion Design, Machine Learning
-          </Paragraph>
+          <Paragraph>Football, Music, Machine Learning</Paragraph>
         </Section>
 
         <Section delay={0.3}>
@@ -123,10 +124,7 @@ const Page = () => {
               </Link>
             </ListItem>
             <ListItem>
-              <Link
-                href="https://www.instagram.com/http.bobur"
-                target="_blank"
-              >
+              <Link href="https://www.instagram.com/http.bobur" target="_blank">
                 <Button
                   variant="ghost"
                   colorScheme="teal"
@@ -136,6 +134,34 @@ const Page = () => {
                 </Button>
               </Link>
             </ListItem>
+            <ListItem>
+              <Link
+                href="https://www.linkedin.com/in/boburkomiljonov"
+                target="_blank"
+              >
+                <Button
+                  variant="ghost"
+                  colorScheme="teal"
+                  leftIcon={<Icon as={AiFillLinkedin} />}
+                >
+                  LinkedIn
+                </Button>
+              </Link>
+            </ListItem>
+          </List>
+        </Section>
+        <Section delay={0.3}>
+          <Heading as="h3" variant="section-title">
+            CV / Resume
+          </Heading>
+          <List>
+            <Button
+              onClick={handleDownload}
+              rightIcon={<GrDocumentPdf />}
+              colorScheme="teal"
+            >
+              Download CV
+            </Button>
           </List>
         </Section>
       </Container>

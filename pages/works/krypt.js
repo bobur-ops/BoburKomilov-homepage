@@ -20,13 +20,13 @@ const Work = () => (
       <P>A WEB 3.0 Blockchain application with real transactions on ETH.</P>
       <P>This is not commercial web-site</P>
       <List ml={4} my={4}>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Stack</Meta>
           <span>React, Soldity, TailwindCSS </span>
         </ListItem>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Website</Meta>
-          <Link href="https://kryptomastery.vercel.app/">
+          <Link target="_blank" href="https://kryptomastery.vercel.app/">
             https://kryptomastery.vercel.app/
             <ExternalLinkIcon mx="2px" />
           </Link>

@@ -12,14 +12,17 @@ const Work = () => (
       </Title>
       <P>A responsive UX UI design of Gericht Restaurant</P>
       <List ml={4} my={4}>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Website</Meta>
-          <Link href="https://gerichtrestaurant-app.netlify.app/">
+          <Link
+            target="_blank"
+            href="https://gerichtrestaurant-app.netlify.app/"
+          >
             https://gerichtrestaurant-app.netlify.app/
             <ExternalLinkIcon mx="2px" />
           </Link>
         </ListItem>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Platform</Meta>
           <span>Windows/macOS/Linux/iOS/Android</span>
         </ListItem>

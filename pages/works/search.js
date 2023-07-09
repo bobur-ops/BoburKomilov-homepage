@@ -10,21 +10,23 @@ const Work = () => (
       <Title>
         Search Engine <Badge>2021-</Badge>
       </Title>
-      <P>
-        Analog of Goggle. My own Search Engine
-      </P>
+      <P>Analog of Goggle. My own Search Engine</P>
       <List ml={4} my={4}>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Website</Meta>
-          <Link href="https://app-search-engine.netlify.app/search">
-            https://app-search-engine.netlify.app/search<ExternalLinkIcon mx="2px" />
+          <Link
+            target="_blank"
+            href="https://app-search-engine.netlify.app/search"
+          >
+            https://app-search-engine.netlify.app/search
+            <ExternalLinkIcon mx="2px" />
           </Link>
         </ListItem>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Platform</Meta>
           <span>Windows/macOS/Linux/iOS/Android</span>
         </ListItem>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Stack</Meta>
           <span>React, Google API </span>
         </ListItem>

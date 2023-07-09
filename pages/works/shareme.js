@@ -23,13 +23,13 @@ const Work = () => (
       </P>
       <P>This is not commercial web-site</P>
       <List ml={4} my={4}>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Stack</Meta>
           <span>React, GoogleSignIn, TailwindCSS, Sanity </span>
         </ListItem>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Website</Meta>
-          <Link href="https://share-me-react.netlify.app">
+          <Link target="_blank" href="https://share-me-react.netlify.app">
             https://share-me-react.netlify.app/
             <ExternalLinkIcon mx="2px" />
           </Link>

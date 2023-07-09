@@ -14,14 +14,14 @@ const Work = () => (
         A social media app for creating and joining clubs with various theme
       </P>
       <List ml={4} my={4}>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Website</Meta>
-          <Link href="https://sameaim.vercel.app/">
+          <Link target="_blank" href="https://sameaim.vercel.app/">
             https://sameaim.vercel.app/
             <ExternalLinkIcon mx="2px" />
           </Link>
         </ListItem>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Stack</Meta>
           <span>Nextjs, Prisma, TRPC, Chakra ui</span>
         </ListItem>

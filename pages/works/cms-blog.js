@@ -4,7 +4,7 @@ import {
   Link,
   List,
   ListItem,
-  SimpleGrid,
+  SimpleGrid
 } from '@chakra-ui/react'
 import Layout from '../../components/layouts/article'
 import { ExternalLinkIcon } from '@chakra-ui/icons'
@@ -17,21 +17,18 @@ const Work = () => (
       <Title>
         CMS-Blog<Badge>2021-</Badge>
       </Title>
-      <P>
-        A blog application which is made by using NextJS, GraphQL, GraphCMS
-      </P>
-      <P>
-        This is not commercial web-site
-      </P>
+      <P>A blog application which is made by using NextJS, GraphQL, GraphCMS</P>
+      <P>This is not commercial web-site</P>
       <List ml={4} my={4}>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Stack</Meta>
           <span>NextJS, React, GraphQL, GraphCMS</span>
         </ListItem>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Website</Meta>
-          <Link href="https://graphcms-blog-tau.vercel.app/">
-            https://graphcms-blog-tau.vercel.app//<ExternalLinkIcon mx="2px" />
+          <Link target="_blank" href="https://graphcms-blog-tau.vercel.app/">
+            https://graphcms-blog-tau.vercel.app//
+            <ExternalLinkIcon mx="2px" />
           </Link>
         </ListItem>
       </List>

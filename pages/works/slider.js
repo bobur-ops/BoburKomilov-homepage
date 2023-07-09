@@ -10,17 +10,19 @@ const Work = () => (
       <Title>
         Cool Slider <Badge>2020-</Badge>
       </Title>
-      <P>
-        Responsive Slider with a lot of interesting animations
-      </P>
+      <P>Responsive Slider with a lot of interesting animations</P>
       <List ml={4} my={4}>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Website</Meta>
-          <Link href="https://bobur-ops.github.io/Slider.github.io/">
-            https://bobur-ops.github.io/Slider.github.io/<ExternalLinkIcon mx="2px" />
+          <Link
+            target="_blank"
+            href="https://bobur-ops.github.io/Slider.github.io/"
+          >
+            https://bobur-ops.github.io/Slider.github.io/
+            <ExternalLinkIcon mx="2px" />
           </Link>
         </ListItem>
-        <ListItem>
+        <ListItem display={'flex'} alignItems={'center'}>
           <Meta>Stack</Meta>
           <span>Pure HTML, CSS, JavaScript, GSAP, SwiperAPI</span>
         </ListItem>
