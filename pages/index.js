@@ -124,13 +124,13 @@ const Page = () => {
               </Link>
             </ListItem>
             <ListItem>
-              <Link href="https://www.instagram.com/http.bobur" target="_blank">
+              <Link href="https://www.instagram.com/bobur.jsx" target="_blank">
                 <Button
                   variant="ghost"
                   colorScheme="teal"
                   leftIcon={<Icon as={IoLogoInstagram} />}
                 >
-                  @http.bobur
+                  @bobur.jsx
                 </Button>
               </Link>
             </ListItem>
