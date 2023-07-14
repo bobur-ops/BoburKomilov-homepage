@@ -31,7 +31,7 @@ const Logo = () => {
             fontWeight="bold"
             ml={3}
           >
-            Bobur Komilov
+            Muxammadbobur Komiljonov
           </Text>
         </LogoBox>
       </a>
