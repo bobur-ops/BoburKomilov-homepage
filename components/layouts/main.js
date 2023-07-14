@@ -15,7 +15,7 @@ const Main = ({ children, router }) => {
           content="Front-end developer's portfolio website, where you can find information how to contact and latest works"
         />
         <meta charSet="UTF-8" />
-        <title>Bobur Komilov - Homepage</title>
+        <title>Muxammadbobur - Homepage</title>
       </Head>
 
       <Navbar path={router.asPath} />

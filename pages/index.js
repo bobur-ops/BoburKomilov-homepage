@@ -26,7 +26,7 @@ const Page = () => {
     window.open(downloadUrl, '_blank')
   }
 
-  return (
+  return
     <Layout>
       <Container>
         <Box
@@ -41,7 +41,7 @@ const Page = () => {
         <Box display={{ md: 'flex' }}>
           <Box flexGrow={1}>
             <Heading as="h2" variant="page-title">
-              Bobur Komilov
+              Muxammadbobur Komiljonov
             </Heading>
             <p>Front End Developer</p>
           </Box>
