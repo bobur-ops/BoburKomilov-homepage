@@ -26,7 +26,7 @@ const Page = () => {
     window.open(downloadUrl, '_blank')
   }
 
-  return
+  return (
     <Layout>
       <Container>
         <Box
