@@ -6,4 +6,4 @@ Allow: /
 Host: https://www.bobur.me/
 
 # Sitemaps
-Sitemap: https://www.bobur.me/sitemap.xml
+Sitemap: https://www.bobur.me/sitemap-0.xml
