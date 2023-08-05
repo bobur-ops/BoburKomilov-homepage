@@ -1,4 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-<sitemap><loc>https://www.bobur.me/sitemap-0.xml</loc></sitemap>
+<!-- <sitemap><loc>https://www.bobur.me/sitemap-0.xml</loc></sitemap> -->
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:xhtml="http://www.w3.org/1999/xhtml" xmlns:mobile="http://www.google.com/schemas/sitemap-mobile/1.0" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1" xmlns:video="http://www.google.com/schemas/sitemap-video/1.1">
+<url><loc>https://www.bobur.me</loc><lastmod>2023-08-04T12:14:49.268Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.bobur.me/cv</loc><lastmod>2023-08-04T12:14:49.268Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.bobur.me/works</loc><lastmod>2023-08-04T12:14:49.268Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.bobur.me/works/cms-blog</loc><lastmod>2023-08-04T12:14:49.268Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.bobur.me/works/krypt</loc><lastmod>2023-08-04T12:14:49.268Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.bobur.me/works/realtor-estate</loc><lastmod>2023-08-04T12:14:49.268Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.bobur.me/works/rest</loc><lastmod>2023-08-04T12:14:49.268Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.bobur.me/works/sameaim</loc><lastmod>2023-08-04T12:14:49.268Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.bobur.me/works/search</loc><lastmod>2023-08-04T12:14:49.268Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.bobur.me/works/shareme</loc><lastmod>2023-08-04T12:14:49.268Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
+<url><loc>https://www.bobur.me/works/slider</loc><lastmod>2023-08-04T12:14:49.269Z</lastmod><changefreq>daily</changefreq><priority>0.7</priority></url>
 </sitemapindex>
