@@ -21,11 +21,6 @@ import { AiFillLinkedin } from 'react-icons/ai'
 import { GrDocumentPdf } from 'react-icons/gr'
 
 const Page = () => {
-  const handleDownload = () => {
-    const downloadUrl = '/cv.pdf'
-    window.open(downloadUrl, '_blank')
-  }
-
   return (
     <Layout>
       <Container>
@@ -155,13 +150,11 @@ const Page = () => {
             CV / Resume
           </Heading>
           <List>
-            <Button
-              onClick={handleDownload}
-              rightIcon={<GrDocumentPdf />}
-              colorScheme="teal"
-            >
-              Download CV
-            </Button>
+            <NextLink href={'/cv'}>
+              <Button rightIcon={<GrDocumentPdf />} colorScheme="teal">
+                CV / Resume
+              </Button>
+            </NextLink>
           </List>
         </Section>
       </Container>
