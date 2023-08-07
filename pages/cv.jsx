@@ -23,8 +23,12 @@ const Page = () => {
 
   return (
     <Box py={10}>
-      <Flex justifyContent={'space-between'} gridGap={2}>
-        <Box>
+      <Flex
+        justifyContent={'space-between'}
+        flexWrap={{ base: 'wrap-reverse', md: 'nowrap' }}
+        gridGap={4}
+      >
+        <Box w={{ base: 'full', md: 'fit-content' }}>
           {/* <Text>Komiljonov Muxammadbobur</Text> */}
           <Heading>Komiljonov Muxammadbobur</Heading>
           <Text>
@@ -32,7 +36,9 @@ const Page = () => {
             Fergana{' '}
           </Text>
           <Divider my={2} />
-          <Heading my={3}>Frontend Developer</Heading>
+          <Heading my={3} size={'lg'}>
+            Frontend Developer
+          </Heading>
           <Stack spacing={2}>
             <Flex
               as={Link}
@@ -49,7 +55,7 @@ const Page = () => {
             </Flex>
           </Stack>
         </Box>
-        <Box w={320} h={320} rounded={'2xl'} overflow={'hidden'}>
+        <Box w={320} h={320} mx={'auto'} rounded={'2xl'} overflow={'hidden'}>
           <Image
             src="/images/bobur.jpg"
             alt="Portret"
@@ -124,6 +130,9 @@ const Page = () => {
       <Stack>
         <Heading mb={4}>Skills</Heading>
         <Flex gridGap={2}>
+          <Tag size={'lg'} variant="solid" colorScheme="twitter">
+            Typescript
+          </Tag>
           <Tag size={'lg'} variant="solid" colorScheme="blue">
             React
           </Tag>
@@ -135,6 +144,15 @@ const Page = () => {
           </Tag>
           <Tag size={'lg'} variant="solid" colorScheme="orange">
             Git
+          </Tag>
+          <Tag size={'lg'} variant="solid" colorScheme="purple">
+            Redux
+          </Tag>
+          <Tag size={'lg'} variant="solid" colorScheme="green">
+            Vuex
+          </Tag>
+          <Tag size={'lg'} variant="solid" colorScheme="yellow">
+            Pinia
           </Tag>
         </Flex>
       </Stack>

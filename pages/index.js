@@ -15,7 +15,6 @@ import { ChevronRightIcon } from '@chakra-ui/icons'
 import Layout from '../components/layouts/article'
 import Section from '../components/section'
 import Paragraph from '../components/paragraph'
-import { BioSection, BioYear } from '../components/bio'
 import { IoLogoInstagram, IoLogoGithub } from 'react-icons/io5'
 import { AiFillLinkedin } from 'react-icons/ai'
 import { GrDocumentPdf } from 'react-icons/gr'
@@ -80,6 +79,19 @@ const Page = () => {
 
         <Section delay={0.2}>
           <Heading as="h3" variant="section-title">
+            CV / Resume
+          </Heading>
+          <List>
+            <NextLink href={'/cv'}>
+              <Button rightIcon={<GrDocumentPdf />} colorScheme="teal">
+                CV / Resume
+              </Button>
+            </NextLink>
+          </List>
+        </Section>
+
+        {/* <Section delay={0.2}>
+          <Heading as="h3" variant="section-title">
             Bio
           </Heading>
           <BioSection>
@@ -94,12 +106,12 @@ const Page = () => {
             <BioYear>2022</BioYear>
             MasterPlast
           </BioSection>
-        </Section>
+        </Section> */}
         <Section delay={0.3}>
           <Heading as="h3" variant="section-title">
             I ♥
           </Heading>
-          <Paragraph>Football, Music, Machine Learning</Paragraph>
+          <Paragraph>Football, Music</Paragraph>
         </Section>
 
         <Section delay={0.3}>
@@ -143,18 +155,6 @@ const Page = () => {
                 </Button>
               </Link>
             </ListItem>
-          </List>
-        </Section>
-        <Section delay={0.3}>
-          <Heading as="h3" variant="section-title">
-            CV / Resume
-          </Heading>
-          <List>
-            <NextLink href={'/cv'}>
-              <Button rightIcon={<GrDocumentPdf />} colorScheme="teal">
-                CV / Resume
-              </Button>
-            </NextLink>
           </List>
         </Section>
       </Container>
