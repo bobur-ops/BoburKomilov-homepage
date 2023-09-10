@@ -129,7 +129,7 @@ const Page = () => {
 
       <Stack>
         <Heading mb={4}>Skills</Heading>
-        <Flex gridGap={2}>
+        <Flex gridGap={2} flexWrap={"wrap"}>
           <Tag size={'lg'} variant="solid" colorScheme="twitter">
             Typescript
           </Tag>
