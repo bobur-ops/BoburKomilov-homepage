@@ -30,6 +30,24 @@ export const works = [
     description: 'Search for property to rent and buy.',
     stack: 'React, Chakra ui',
     url: 'https://realtor.bobur.me'
+  },
+  {
+    id: 'lord-personal',
+    title: 'Lord Prime (Personal Area)',
+    thumbnail: '/images/work/lord-personal-1.png',
+    images: [
+      '/images/work/lord-personal-1.png',
+      '/images/work/lord-personal-2.png',
+      '/images/work/lord-personal-3.png',
+      '/images/work/lord-personal-4.png',
+      '/images/work/lord-personal-5.png',
+      '/images/work/lord-personal-6.png',
+      '/images/work/lord-personal-7.png'
+    ],
+    description:
+      'A Personal Are for Lord Prime Forex Broker website to monitor the account. Mobile Friendly',
+    stack: 'Nuxt 3, TailwindCSS, Pinia, HeadlessUI',
+    url: 'https://bobur.me'
   }
 ]
 
