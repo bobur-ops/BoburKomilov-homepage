@@ -2,6 +2,7 @@ import Link from 'next/link'
 import Image from 'next/image'
 import { Text, useColorModeValue } from '@chakra-ui/react'
 import styled from '@emotion/styled'
+import { useState, useEffect } from 'react'
 
 const LogoBox = styled.span`
   font-weight: bold;
@@ -17,6 +18,24 @@ const LogoBox = styled.span`
 `
 
 const Logo = () => {
+  const [windowWidth, setWindowWidth] = useState(null)
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      setWindowWidth(window.innerWidth)
+
+      const handleResize = () => {
+        setWindowWidth(window.innerWidth)
+      }
+
+      window.addEventListener('resize', handleResize)
+
+      return () => {
+        window.removeEventListener('resize', handleResize)
+      }
+    }
+  }, [])
+
   const footPrintImg = `/images/footprint${useColorModeValue('', '-dark')}.png`
 
   return (
@@ -26,12 +45,12 @@ const Logo = () => {
           <Image src={footPrintImg} width={20} height={20} alt="logo" />
           <Text
             color={useColorModeValue('gray.800', 'whiteAlpha.900')}
-            fontFamily='M PLUS Rounded 1c, sans-serif'
-            letterSpacing= 'tighter'
+            fontFamily="M PLUS Rounded 1c, sans-serif"
+            letterSpacing="tighter"
             fontWeight="bold"
             ml={3}
           >
-            Muxammadbobur Komiljonov
+            Muxammadbobur {windowWidth > 768 ? 'Komiljonov' : 'K.'}
           </Text>
         </LogoBox>
       </a>
