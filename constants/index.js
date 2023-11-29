@@ -54,3 +54,5 @@ export const works = [
 export const getWorkItem = value => {
   return works.find(i => i.id === value)
 }
+
+export const GOOGLE_ANALYTICS_ID = 'G-K87ME9X149'
