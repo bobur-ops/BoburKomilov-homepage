@@ -7,12 +7,11 @@ import {
   Image,
   Divider,
   Stack,
-  Badge,
   Tag,
   Button
 } from '@chakra-ui/react'
 import { EmailIcon, PhoneIcon } from '@chakra-ui/icons'
-
+import { differenceInYears } from 'date-fns'
 import { GrDocumentPdf } from 'react-icons/gr'
 
 const Page = () => {
@@ -20,6 +19,8 @@ const Page = () => {
     const downloadUrl = '/cv.pdf'
     window.open(downloadUrl, '_blank')
   }
+
+  const age = differenceInYears(new Date(), new Date('2005-11-10'))
 
   return (
     <Box py={10}>
@@ -29,11 +30,10 @@ const Page = () => {
         gridGap={4}
       >
         <Box w={{ base: 'full', md: 'fit-content' }}>
-          {/* <Text>Komiljonov Muxammadbobur</Text> */}
           <Heading>Komiljonov Muxammadbobur</Heading>
           <Text>
-            Male, 18 years old, born in 2005, 10th November <br /> Uzbekistan,
-            Fergana{' '}
+            Male, {age} years old, born in 2005, 10th November <br />{' '}
+            Uzbekistan, Fergana{' '}
           </Text>
           <Divider my={2} />
           <Heading my={3} size={'lg'}>
@@ -76,6 +76,101 @@ const Page = () => {
         <Stack spacing={5}>
           <Stack>
             <Flex justifyContent="space-between" alignItems="center">
+              <Heading size="md">HPACE</Heading>
+              <Text>Jan 2024 - Present</Text>
+            </Flex>
+            <Text>Frontend Developer</Text>
+            <Text>
+              At Hpace, I am responsible for the development and maintenance of
+              web applications for various projects. My duties include:
+              Development of an online cake shop: I implemented key features,
+              including a product catalog, shopping cart, and payment system. I
+              ensured a high-quality user experience and site performance.
+              Working on urgent features: I quickly and efficiently integrated
+              new functionalities within multitasking projects, which required
+              high speed and accuracy. Multitasking: I participated in several
+              projects simultaneously, which helped me develop time management
+              and task prioritization skills. In my work, I used modern
+              technologies such as React, Next.js, Tailwind CSS, Vue.js, and
+              Nuxt.js, ensuring the creation of high-quality, scalable, and
+              responsive interfaces.
+            </Text>
+            <Divider />
+          </Stack>
+          <Stack>
+            <Flex justifyContent="space-between" alignItems="center">
+              <Heading size="md">Smart-Base</Heading>
+              <Text>Nov 2023 - Present</Text>
+            </Flex>
+            <Text>Frontend Developer</Text>
+            <Text>
+              At Smart-Base, I worked as a front-end developer as part of a
+              large team. My responsibilities included the development and
+              maintenance of a large-scale project that required comprehensive
+              use of maps and integration of a significant amount of
+              information. The project included vehicle monitoring, video
+              cameras, and other features. I was responsible for implementing
+              complex dashboard pages that displayed all project information,
+              providing a convenient and visual interface for users. In addition
+              to working as part of a team on large projects, I also
+              independently worked on implementing smaller-scale projects. In my
+              work, I actively utilized technologies such as React, Redux,
+              React-Leaflet, and Leaflet map to create interactive and
+              functional interfaces.
+            </Text>
+            <Divider />
+          </Stack>
+          <Stack>
+            <Flex justifyContent="space-between" alignItems="center">
+              <Heading size="md">Project: Masterplast</Heading>
+              <Text>Apr 2023 - Oct 2023</Text>
+            </Flex>
+            <Text>Frontend Developer</Text>
+            <Text>
+              Development of a comprehensive project for creating window frames
+              using pure Canvas for rendering models. The project involved
+              developing an interactive interface that allows users to visualize
+              and customize window frames in real time. Technologies: Nuxt 3,
+              Pinia, Canvas API
+            </Text>
+            <Divider />
+          </Stack>
+          <Stack>
+            <Flex justifyContent="space-between" alignItems="center">
+              <Heading size="md">ODMSoft</Heading>
+              <Text>Aug 2022 - Feb 2023</Text>
+            </Flex>
+            <Text>Frontend Developer</Text>
+            <Text>
+              At ODMSoft, I worked as a front-end developer, where the main
+              project was the creation of a PDF editor. In this project, I was
+              responsible for developing the interface and functionality for
+              working with PDF documents. Technologies: Nuxt 3, Vue.js
+            </Text>
+            <Divider />
+          </Stack>
+          <Stack>
+            <Flex justifyContent="space-between" alignItems="center">
+              <Heading size="md">Freelance</Heading>
+              <Text>May 2021 - Aug 2022</Text>
+            </Flex>
+            <Text>Frontend Developer</Text>
+            <Text>
+              I worked as a freelancer, taking on various projects for different
+              clients. During this period, I participated in the development of
+              numerous projects, including the creation of web applications and
+              user interfaces. The main technologies I used included React and
+              Vue.js, along with other tools and libraries necessary for the
+              successful completion of freelance projects. My responsibilities
+              included requirements analysis, functionality development, API
+              integration, and ensuring a high-quality user experience. I worked
+              on projects of varying scale and complexity, which allowed me to
+              expand my skills and experience in various areas of web
+              development.
+            </Text>
+          </Stack>
+          {/* <Stack>
+            <Flex justifyContent="space-between" alignItems="center">
               <Heading size="md">ODMSoft</Heading>
               <Text>Nov 2022 - Apr 2023</Text>
             </Flex>
@@ -106,7 +201,7 @@ const Page = () => {
               on the frontend part of the project, focusing on statistics for a
               cryptocurrency game.
             </Text>
-          </Stack>
+          </Stack> */}
         </Stack>
       </Stack>
 
@@ -129,7 +224,7 @@ const Page = () => {
 
       <Stack>
         <Heading mb={4}>Skills</Heading>
-        <Flex gridGap={2} flexWrap={"wrap"}>
+        <Flex gridGap={2} flexWrap={'wrap'}>
           <Tag size={'lg'} variant="solid" colorScheme="twitter">
             Typescript
           </Tag>

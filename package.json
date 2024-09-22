@@ -19,6 +19,7 @@
     "@emotion/react": "^11.5.0",
     "@emotion/styled": "^11.3.0",
     "@supabase/supabase-js": "^2.31.0",
+    "date-fns": "^4.1.0",
     "framer-motion": "^4.1.17",
     "next": "^11.1.2",
     "next-sitemap": "^4.1.8",
