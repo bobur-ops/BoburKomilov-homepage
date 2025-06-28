@@ -5,6 +5,14 @@ import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { motion, AnimatePresence } from "motion/react";
 
+const animations = {
+  initial: { rotate: 90, opacity: 0.5 },
+  animate: { rotate: 0, opacity: 1 },
+  exit: { rotate: -90, opacity: 0.5 },
+  transition: { duration: 0.2, ease: "linear" },
+  className: "text-foreground hover:text-accent-foreground transition-colors",
+} as const;
+
 export default function ThemeSwitcher() {
   const { theme, setTheme, systemTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
@@ -26,24 +34,12 @@ export default function ThemeSwitcher() {
     >
       <AnimatePresence mode="wait">
         {currentTheme === "dark" ? (
-          <motion.span
-            key="moon"
-            initial={{ rotate: 90, opacity: 0 }}
-            animate={{ rotate: 0, opacity: 1 }}
-            exit={{ rotate: -90, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Moon className="w-5 h-5 !size-5" />
+          <motion.span key="moon" {...animations}>
+            <Moon className="!size-5.5" />
           </motion.span>
         ) : (
-          <motion.span
-            key="sun"
-            initial={{ rotate: 90, opacity: 0 }}
-            animate={{ rotate: 0, opacity: 1 }}
-            exit={{ rotate: -90, opacity: 0 }}
-            transition={{ duration: 0.3 }}
-          >
-            <Sun className="w-5 h-5 !size-5" />
+          <motion.span key="sun" {...animations}>
+            <Sun className="!size-5.5" />
           </motion.span>
         )}
       </AnimatePresence>
