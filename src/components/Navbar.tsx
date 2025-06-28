@@ -1,0 +1,18 @@
+import ThemeSwitcher from "@/features/theme/ThemeSwitcher";
+import Link from "next/link";
+
+export default function Navbar() {
+  return (
+    <div className="h-12 left-0 right-0 fixed top-0 flex items-center justify-center bg-accent">
+      <div className="w-full max-w-4xl flex justify-between items-center">
+        <Link href="/">Muxammadbobur K.</Link>
+        <div className="flex items-center gap-2">
+          {/* <Link href="/about" className="hover:underline underline-offset-2">
+            About
+          </Link> */}
+        </div>
+        <ThemeSwitcher />
+      </div>
+    </div>
+  );
+}
