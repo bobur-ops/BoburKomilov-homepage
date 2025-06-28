@@ -13,6 +13,8 @@ export async function POST(req: NextRequest) {
   try {
     const { filename, markdown } = await req.json();
 
+    console.log("Received data:", { filename, markdown, githubToken });
+
     if (!filename || !markdown) {
       return new Response("Filename and markdown content are required", {
         status: 400,
