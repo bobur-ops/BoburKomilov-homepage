@@ -2,9 +2,14 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import MdxWrapper from "@/components/MdxWrapper";
 import { getPostContent } from "@/utils/getPostContent";
 
-export default function Page({ params }: { params: { post_id: string } }) {
-  const { content, data } = getPostContent(
-    `posts/${params.post_id}/content.mdx`
+export default async function Page({
+  params,
+}: {
+  params: { post_id: string };
+}) {
+  const { post_id } = await params;
+  const { content, data } = await getPostContent(
+    `posts/${post_id}/content.mdx`
   );
 
   return (
