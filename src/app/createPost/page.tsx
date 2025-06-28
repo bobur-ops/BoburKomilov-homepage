@@ -11,15 +11,6 @@ export default function CreatePostPage() {
   const [isPreview, setIsPreview] = useState(false);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
-  useHotkeys("ctrl+enter, cmd+enter", () => setIsPreview(!isPreview), {
-    enableOnContentEditable: true,
-    enableOnFormTags: true,
-  });
-
-  const handleSave = async () => {
-    console.log("Save markdown:", markdown);
-  };
-
   const parsed: any = useMemo(() => {
     if (!isPreview) return { content: "", data: {} };
     return matter(markdown);
@@ -35,10 +26,52 @@ export default function CreatePostPage() {
       const textarea = textareaRef.current;
       textarea.focus();
       const length = textarea.value.length;
-      // Move cursor to the end
       textarea.setSelectionRange(length, length);
     }
   }, [isPreview]);
+
+  const handleSave = async () => {
+    const parsed = matter(markdown);
+
+    const title = parsed.data.title;
+    const filename =
+      title
+        ?.toLowerCase()
+        .replace(/\s+/g, "-")
+        .replace(/[^\w-]/g, "")
+        .trim() || "untitled";
+
+    if (!title) {
+      alert("Missing title in frontmatter!");
+      return;
+    }
+
+    const res = await fetch("/api/save-post", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        filename,
+        markdown,
+      }),
+    });
+
+    const json = await res.json();
+    if (!res.ok) {
+      alert(`Error: ${json.error}`);
+    } else {
+      alert(json.message);
+    }
+  };
+
+  useHotkeys("ctrl+shift+enter, cmd+shift+enter", () => handleSave(), {
+    enableOnContentEditable: true,
+    enableOnFormTags: true,
+  });
+
+  useHotkeys("ctrl+enter, cmd+enter", () => setIsPreview(!isPreview), {
+    enableOnContentEditable: true,
+    enableOnFormTags: true,
+  });
 
   return (
     <div className="py-4">
