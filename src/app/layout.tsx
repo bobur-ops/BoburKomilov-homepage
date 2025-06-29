@@ -15,8 +15,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bobur Komiljonov - Homepage",
-  description: "",
+  title: "Bobur Komiljonov - Frontend Developer Portfolio",
+  description:
+    "Bobur Komiljonov is a frontend developer from Tashkent specializing in React, Vue, and scalable web apps. Discover his latest projects, experience with Yandex and Smart-Base, and download his CV.",
 };
 
 export default function RootLayout({
