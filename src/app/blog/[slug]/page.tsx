@@ -7,7 +7,7 @@ import { cn } from "@/lib/utils";
 import readingTime from "reading-time";
 import RemoteBlurImage from "@/components/BlurImage";
 
-export async function ggenerateStaticParams() {
+export async function generateStaticParams() {
   const posts = await getPublishedPosts();
 
   return posts.map((post: any) => {
@@ -16,15 +16,15 @@ export async function ggenerateStaticParams() {
   });
 }
 
-export default async function BlogPostPage({
-  params,
-}: {
-  params: { slug: string };
+export default async function BlogPostPage(props: {
+  params: Promise<{ slug: string }>;
 }) {
+  const params = await props.params;
+  const { slug } = params;
   const posts = await getPublishedPosts();
   const post: any = posts.find((p: any) => {
-    const slug = p.properties.slug?.rich_text[0]?.plain_text || p.id;
-    return slug === params.slug;
+    const s = p.properties.slug?.rich_text[0]?.plain_text || p.id;
+    return s === slug;
   });
   if (!post) {
     return (
