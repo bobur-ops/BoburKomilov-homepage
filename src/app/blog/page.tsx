@@ -1,13 +1,11 @@
+import RemoteBlurImage from "@/components/BlurImage";
 import MdxWrapper from "@/components/MdxWrapper";
 import { getPublishedPosts } from "@/lib/notion";
 import { format } from "date-fns";
-import Image from "next/image";
 import Link from "next/link";
 
 export default async function BlogPage() {
   const posts = await getPublishedPosts();
-
-  console.log("Fetched posts:", posts);
 
   return (
     <MdxWrapper isProse={false}>
@@ -32,7 +30,7 @@ export default async function BlogPage() {
             <Link href={`/blog/${slug}`} key={post.id}>
               <div className="border transition-colors hover:bg-accent">
                 {coverImage && (
-                  <Image
+                  <RemoteBlurImage
                     src={coverImage}
                     alt={title}
                     width={800}

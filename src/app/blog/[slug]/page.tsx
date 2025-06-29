@@ -3,8 +3,9 @@ import CreatedAt from "@/components/CreatedAt";
 import MdxWrapper from "@/components/MdxWrapper";
 import { getPostMarkdown, getPublishedPosts } from "@/lib/notion";
 import { MDXRemote } from "next-mdx-remote/rsc";
-import Image from "next/image";
 import { cn } from "@/lib/utils";
+import readingTime from "reading-time";
+import RemoteBlurImage from "@/components/BlurImage";
 
 export async function ggenerateStaticParams() {
   const posts = await getPublishedPosts();
@@ -37,32 +38,32 @@ export default async function BlogPostPage({
   const coverImage = post.cover?.external.url;
   const createdAt = post.created_time;
 
+  const readStats = readingTime(mdxContent.parent);
+  const readTime = readStats?.text;
+
   return (
     <>
       <MdxWrapper
         className={cn({
-          "pt-[350px]": coverImage,
+          "pt-[200px] md:pt-[350px]": coverImage,
         })}
       >
+        <CreatedAt readTime={readTime} createdAt={createdAt} />
         {coverImage && (
           <Portal>
-            <div className="fixed top-14 left-0 right-0 h-[350px]">
-              <Image
+            <div className="absolute top-14 left-0 right-0 h-[200px] md:h-[350px]">
+              <RemoteBlurImage
                 alt="Cover Image"
                 width={1920}
                 height={350}
                 src={coverImage}
                 className="w-full h-full object-cover"
-                placeholder="blur"
-                blurDataURL={coverImage}
               />
             </div>
           </Portal>
         )}
 
         <MDXRemote source={mdxContent.parent} />
-
-        <CreatedAt createdAt={createdAt} />
       </MdxWrapper>
     </>
   );

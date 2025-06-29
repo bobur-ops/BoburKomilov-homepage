@@ -4,12 +4,14 @@ import { format } from "date-fns";
 
 type Props = {
   createdAt: string;
+  readTime: string;
 };
 
-export default function CreatedAt({ createdAt }: Props) {
+export default function CreatedAt({ createdAt, readTime }: Props) {
   return (
-    <p className="flex justify-end text-sm">
-      {format(new Date(createdAt), "MMMM d, yyyy")}
+    <p className="flex justify-start text-sm">
+      {format(new Date(createdAt), "MMMM d, yyyy")}{" "}
+      {readTime && `• ${readTime}`}
     </p>
   );
 }
