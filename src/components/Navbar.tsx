@@ -7,9 +7,9 @@ export default function Navbar() {
       <div className="w-full max-w-4xl flex justify-between items-center px-2 md:px-4 lg:px-0">
         <Link href="/">Muxammadbobur K.</Link>
         <div className="flex items-center gap-2">
-          {/* <Link href="/about" className="hover:underline underline-offset-2">
-            About
-          </Link> */}
+          <Link href="/blog" className="hover:underline underline-offset-2">
+            Blog
+          </Link>
         </div>
         <ThemeSwitcher />
       </div>

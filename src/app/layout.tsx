@@ -34,6 +34,8 @@ export default function RootLayout({
             <Navbar />
             <>{children}</>
           </div>
+
+          <div id="portal-root"></div>
         </ThemeProvider>
       </body>
     </html>
