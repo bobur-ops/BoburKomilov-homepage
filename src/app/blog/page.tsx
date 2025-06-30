@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import RemoteBlurImage from "@/components/BlurImage";
 import MdxWrapper from "@/components/MdxWrapper";
 import { getPublishedPosts } from "@/lib/notion";
@@ -28,7 +30,7 @@ export default async function BlogPage() {
 
           return (
             <Link href={`/blog/${slug}`} key={post.id}>
-              <div className="border transition-colors hover:bg-accent">
+              <div className="border transition-colors hover:bg-accent h-full">
                 {coverImage && (
                   <RemoteBlurImage
                     src={coverImage}
