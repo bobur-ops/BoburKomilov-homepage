@@ -2,6 +2,7 @@ import ThemeSwitcher from "@/features/theme/ThemeSwitcher";
 import Link from "next/link";
 import Portal from "./Portal";
 import MobileLinksMenu from "./MobileLinksMenu";
+import NavbarLink from "./NavbarLink";
 
 export default function Navbar() {
   return (
@@ -10,19 +11,15 @@ export default function Navbar() {
         <div className="w-full max-w-4xl flex justify-between items-center px-2 md:px-4 lg:px-0">
           <Link href="/">Muxammadbobur K.</Link>
           <div className="hidden md:flex items-center gap-6">
-            <Link href="/blog" className="hover:underline underline-offset-2">
-              Blog
-            </Link>
-            <Link href="/git" className="hover:underline underline-offset-2">
-              Git
-            </Link>
-            <Link
+            <NavbarLink href="/blog">Blog</NavbarLink>
+            <NavbarLink href="/uses">Uses</NavbarLink>
+            <NavbarLink href="/git">Git</NavbarLink>
+            <NavbarLink
               href="https://github.com/bobur-ops/BoburKomilov-homepage"
               target="_blank"
-              className="hover:underline underline-offset-2"
             >
               Source
-            </Link>
+            </NavbarLink>
           </div>
           <div className="flex items-center gap-2">
             <ThemeSwitcher />

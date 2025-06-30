@@ -42,6 +42,11 @@ export default function MobileLinksMenu() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
+          <Link className="w-full h-full" href={"/uses"}>
+            Uses
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           <Link className="w-full h-full" href={"/git"}>
             Git
           </Link>
