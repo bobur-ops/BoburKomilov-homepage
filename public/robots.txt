@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://www.bobur.me
+
+# Sitemaps
+Sitemap: https://www.bobur.me/sitemap.xml

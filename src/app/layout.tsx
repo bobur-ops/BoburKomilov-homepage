@@ -18,7 +18,26 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "Bobur Komiljonov - Frontend Developer Portfolio",
   description:
-    "Bobur Komiljonov is a frontend developer from Tashkent specializing in React, Vue, and scalable web apps. Discover his latest projects, experience with Yandex and Smart-Base, and download his CV.",
+    "Muxammadbobur Komiljonov is a frontend developer from Tashkent specializing in React, Vue, and scalable web apps. Discover his latest projects, experience with Yandex and Smart-Base, and download his CV.",
+  authors: [{ name: "Muxammadbobur Komiljonov" }],
+  keywords: [
+    "Frontend",
+    "React",
+    "Developer",
+    "Blog",
+    "Uzbekistan",
+    "Muxammadbobur",
+    "Komiljonov",
+  ],
+  metadataBase: new URL("https://www.bobur.me"),
+  openGraph: {
+    title: "Muxammadbobur Komiljonov - Frontend Developer",
+    description: "Personal portfolio and blog",
+    url: "https://www.bobur.me",
+    siteName: "Muxammadbobur Komiljonov",
+    locale: "en_US",
+    type: "website",
+  },
 };
 
 export default function RootLayout({
