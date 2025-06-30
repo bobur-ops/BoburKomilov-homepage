@@ -4,6 +4,7 @@ import { getRepos, getUserStats } from "@/lib/git";
 import LanguageChart from "./components/LanguageChart";
 import GitCalendar from "./components/GitCalendar";
 import GitQuickStats from "./components/GitQuickStats";
+import RepoGraph from "./components/RepoGraph";
 
 export default async function GitPage() {
   const username = "bobur-ops";
@@ -31,6 +32,12 @@ export default async function GitPage() {
 
   const totalStars = repos.reduce((a, r) => a + r.stargazers_count, 0);
   const totalForks = repos.reduce((a, r) => a + r.forks_count, 0);
+
+  const repoGraphData = repos.map((repo: any) => ({
+    id: repo.name,
+    language: repo.language,
+    stargazers_count: repo.stargazers_count,
+  }));
 
   if (!user) {
     return (
@@ -69,6 +76,8 @@ export default async function GitPage() {
         </Card>
 
         <LanguageChart languageData={languageData} />
+
+        <RepoGraph repos={repoGraphData} />
 
         <GitCalendar />
 
