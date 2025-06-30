@@ -6,17 +6,15 @@ import { Moon, Sun } from "lucide-react";
 import { motion } from "motion/react";
 
 export default function ThemeSwitcher() {
-  const { theme, setTheme, systemTheme } = useTheme();
+  const { resolvedTheme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   useEffect(() => setMounted(true), []);
 
   if (!mounted) return null;
 
-  const currentTheme = theme === "system" ? systemTheme : theme;
-
   const toggleTheme = () => {
-    setTheme(theme === "dark" ? "light" : "dark");
+    setTheme(resolvedTheme === "dark" ? "light" : "dark");
   };
 
   return (
@@ -26,11 +24,11 @@ export default function ThemeSwitcher() {
     >
       <motion.div
         initial={false}
-        animate={{ rotate: currentTheme === "dark" ? 180 : 0 }}
+        animate={{ rotate: resolvedTheme === "dark" ? 180 : 0 }}
         transition={{ type: "spring", stiffness: 300, damping: 10 }}
         className="text-foreground hover:text-accent-foreground transition-colors"
       >
-        {currentTheme === "dark" ? (
+        {resolvedTheme === "dark" ? (
           <Sun className="w-6 h-6" />
         ) : (
           <Moon className="w-6 h-6" />
