@@ -6,6 +6,7 @@ import { MDXRemote } from "next-mdx-remote/rsc";
 import { cn } from "@/lib/utils";
 import readingTime from "reading-time";
 import RemoteBlurImage from "@/components/BlurImage";
+import { getCoverImage } from "@/utils/getCoverImage";
 
 export async function generateStaticParams() {
   const posts = await getPublishedPosts();
@@ -35,7 +36,7 @@ export default async function BlogPostPage(props: {
   }
 
   const mdxContent = await getPostMarkdown(post.id);
-  const coverImage = post.cover?.external.url;
+  const coverImage = getCoverImage(post);
   const createdAt = post.created_time;
 
   const readStats = readingTime(mdxContent.parent);

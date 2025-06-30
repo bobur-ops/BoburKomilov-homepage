@@ -3,6 +3,7 @@ export const revalidate = 60;
 import RemoteBlurImage from "@/components/BlurImage";
 import MdxWrapper from "@/components/MdxWrapper";
 import { getPublishedPosts } from "@/lib/notion";
+import { getCoverImage } from "@/utils/getCoverImage";
 import { format } from "date-fns";
 import Link from "next/link";
 
@@ -25,21 +26,25 @@ export default async function BlogPage() {
           const slug =
             post.properties.slug?.rich_text[0]?.plain_text || post.id;
 
-          const coverImage = post.cover?.external.url;
+          const coverImage = getCoverImage(post);
           const createdAt = post.created_time;
 
           return (
             <Link href={`/blog/${slug}`} key={post.id}>
-              <div className="border transition-colors hover:bg-accent h-full">
-                {coverImage && (
-                  <RemoteBlurImage
-                    src={coverImage}
-                    alt={title}
-                    width={800}
-                    height={400}
-                    className="w-full h-52 object-cover !m-0"
-                  />
-                )}
+              <div className="border flex flex-col transition-colors hover:bg-accent h-full">
+                <div className="flex-1 max-h-52">
+                  {coverImage ? (
+                    <RemoteBlurImage
+                      src={coverImage}
+                      alt={title}
+                      width={800}
+                      height={400}
+                      className="w-full h-52 object-cover !m-0"
+                    />
+                  ) : (
+                    <div className="w-full h-full bg-accent"></div>
+                  )}
+                </div>
 
                 <div className="p-4">
                   <h2 className="text-xl font-semibold decoration-0">
