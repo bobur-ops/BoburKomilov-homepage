@@ -203,6 +203,10 @@
     @apply cursor-pointer;
   }
 
+  textarea {
+    @apply !ring-0;
+  }
+
   ::-webkit-scrollbar {
     display: none;
   }

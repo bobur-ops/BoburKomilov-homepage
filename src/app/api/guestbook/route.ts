@@ -1,3 +1,4 @@
+import axios from "axios";
 import { NextResponse } from "next/server";
 
 const REPO = "bobur-ops/guestbook";
@@ -11,23 +12,21 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid message" }, { status: 400 });
   }
 
-  const res = await fetch(
+  const res = await axios.post(
     `https://api.github.com/repos/${REPO}/issues/${ISSUE_NUMBER}/comments`,
     {
-      method: "POST",
+      body: message,
+    },
+    {
       headers: {
         Authorization: `Bearer ${GUESTBOOK_TOKEN}`,
         "Content-Type": "application/json",
         "User-Agent": "guestbook-bot",
       },
-
-      body: JSON.stringify({
-        body: message,
-      }),
     }
   );
 
-  if (!res.ok) {
+  if (!res.data || res.status !== 201) {
     return NextResponse.json({ error: "GitHub error" }, { status: 500 });
   }
 
@@ -35,27 +34,35 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
-  const res = await fetch(
+  const res = await axios(
     `https://api.github.com/repos/${REPO}/issues/${ISSUE_NUMBER}/comments`,
     {
       headers: {
         Authorization: `Bearer ${process.env.GUESTBOOK_TOKEN}`,
         "User-Agent": "guestbook-bot",
       },
+      params: {
+        sort: "created",
+        direction: "desc",
+      },
     }
   );
-
-  const data = await res.json();
+  const data = res.data;
 
   if (!Array.isArray(data)) {
     return NextResponse.json({ error: "GitHub error", data }, { status: 500 });
   }
 
-  const messages = data.map((comment: any) => ({
-    id: comment.id,
-    body: comment.body,
-    date: comment.created_at,
-  }));
+  const messages = data
+    .sort(
+      (a: any, b: any) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+    )
+    .map((comment: any) => ({
+      id: comment.id,
+      body: comment.body,
+      date: comment.created_at,
+    }));
 
   return NextResponse.json(messages);
 }
