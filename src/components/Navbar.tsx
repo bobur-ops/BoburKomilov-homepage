@@ -14,6 +14,7 @@ export default function Navbar() {
             <NavbarLink href="/blog">Blog</NavbarLink>
             <NavbarLink href="/uses">Uses</NavbarLink>
             <NavbarLink href="/git">Git</NavbarLink>
+            <NavbarLink href="/guestbook">Guestbook</NavbarLink>
             <NavbarLink
               href="https://github.com/bobur-ops/BoburKomilov-homepage"
               target="_blank"

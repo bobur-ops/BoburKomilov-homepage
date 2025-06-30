@@ -52,6 +52,11 @@ export default function MobileLinksMenu() {
           </Link>
         </DropdownMenuItem>
         <DropdownMenuItem>
+          <Link className="w-full h-full" href={"/guestbook"}>
+            Guestbook
+          </Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           <Link
             target="_blank"
             className="w-full h-full"
