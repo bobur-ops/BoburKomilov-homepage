@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import Portal from "@/components/Portal";
 import CreatedAt from "@/components/CreatedAt";
 import MdxWrapper from "@/components/MdxWrapper";
