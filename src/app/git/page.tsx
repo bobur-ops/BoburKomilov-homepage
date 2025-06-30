@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import MdxWrapper from "@/components/MdxWrapper";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { getRepos, getUserStats } from "@/lib/git";
