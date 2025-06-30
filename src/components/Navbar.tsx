@@ -13,7 +13,9 @@ export default function Navbar() {
             <Link href="/blog" className="hover:underline underline-offset-2">
               Blog
             </Link>
-
+            <Link href="/git" className="hover:underline underline-offset-2">
+              Git
+            </Link>
             <Link
               href="https://github.com/bobur-ops/BoburKomilov-homepage"
               target="_blank"
