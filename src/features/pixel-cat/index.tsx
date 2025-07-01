@@ -124,9 +124,7 @@ export default function PixelCat() {
       style={{
         transform: `translate(${position.x}px, ${position.y}px) scaleX(${
           direction === "right" ? -1 : 1
-        }) scale(${
-          typeof window !== "undefined" && window.innerWidth < 768 ? 1.5 : 2
-        })`,
+        }) scale(1.5)`,
         transformOrigin: "center",
         width: `${current.width}px`,
         height: "64px",
