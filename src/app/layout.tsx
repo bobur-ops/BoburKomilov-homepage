@@ -55,6 +55,7 @@ export default function RootLayout({
             attribute="class"
             defaultTheme="claude-dark"
             enableSystem
+            storageKey="theme-v0.1"
             themes={[
               "claude-dark",
               "claude-light",
