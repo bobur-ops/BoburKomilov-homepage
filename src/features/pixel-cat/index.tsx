@@ -19,6 +19,13 @@ export default function PixelCat() {
     sceneRef.current = scene;
   }, [scene]);
 
+  useEffect(() => {
+    Object.values(sprites).forEach((sprite) => {
+      const img = new Image();
+      img.src = sprite.url;
+    });
+  }, []);
+
   const pickNewTarget = () => {
     const margin = 80;
     const newX = Math.random() * (window.innerWidth - margin);
@@ -139,6 +146,7 @@ export default function PixelCat() {
           backgroundRepeat: "no-repeat",
           animation,
           imageRendering: "pixelated",
+          willChange: "transform, background-image",
         }}
       />
     </div>
