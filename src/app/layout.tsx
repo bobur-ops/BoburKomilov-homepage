@@ -6,6 +6,7 @@ import Navbar from "@/components/Navbar";
 import Providers from "./providers";
 import { FALLBACK_DEFAULT_THEME } from "@/features/theme/consts";
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
+import PixelCat from "@/features/pixel-cat";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -94,6 +95,7 @@ export default function RootLayout({
             ]}
           >
             <div className="min-h-[100dvh] overflow-y-auto max-w-4xl mx-auto pt-14 px-2 md:px-4 lg:px-0">
+              <PixelCat />
               <Navbar />
               <ScrollProgress />
               <>{children}</>

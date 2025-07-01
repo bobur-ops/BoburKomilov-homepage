@@ -66,6 +66,21 @@
   --shadow-2xl: var(--shadow-2xl);
 }
 
+@layer utilities {
+  @keyframes walk {
+    from {
+      background-position: 0 0;
+    }
+    to {
+      background-position: -960px 0;
+    }
+  }
+
+  .animate-walk {
+    animation: walk 1s steps(10) infinite;
+  }
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;
