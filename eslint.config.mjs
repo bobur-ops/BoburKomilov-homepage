@@ -15,6 +15,7 @@ const eslintConfig = [
     rules: {
       "@typescript-eslint/no-explicit-any": "off",
       "@typescript-eslint/ban-ts-comment": 0,
+      "@typescript-eslint/no-empty-object-type": 0,
     },
   },
 ];
