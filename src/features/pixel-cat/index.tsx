@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { Scene, sprites } from "./consts";
 
 const SPEED = 40;
@@ -8,7 +8,11 @@ const IDLE_TIME = 3000;
 
 export default function PixelCat() {
   const [position, setPosition] = useState({ x: 0, y: 100 });
-  const [target, setTarget] = useState({ x: 200, y: 100 });
+  const [target, setTarget] = useState({
+    x: 150.90771343948535,
+    y: 309.99170040941084,
+  });
+
   const [direction, setDirection] = useState<"left" | "right">("right");
   const [scene, setScene] = useState<Scene>("walk");
   const sceneRef = useRef<Scene>("walk");
@@ -26,14 +30,34 @@ export default function PixelCat() {
     });
   }, []);
 
-  const pickNewTarget = () => {
-    const margin = 80;
-    const newX = Math.random() * (window.innerWidth - margin);
-    const newY = Math.random() * (window.innerHeight - 200); // avoid footer/header
-    setTarget({ x: newX, y: newY });
-    setDirection(newX > position.x ? "right" : "left");
-    setScene("walk");
+  const playScene = (name: Scene, duration: number, then: () => void) => {
+    setScene(name);
+    setTimeout(() => {
+      then();
+    }, duration);
   };
+
+  const pickNewTarget = useCallback(() => {
+    const margin = 80;
+    const spriteWidth = sprites.walk.width * 1.5;
+    const spriteHeight = 64 * 1.5;
+
+    const newX = Math.random() * (window.innerWidth - spriteWidth - margin);
+    const newY = Math.random() * (window.innerHeight - spriteHeight - margin);
+
+    setTarget(() => ({ x: newX, y: newY }));
+
+    setPosition((prev) => {
+      setDirection(newX > prev.x ? "right" : "left");
+      return prev;
+    });
+
+    setScene("walk");
+  }, []);
+
+  useEffect(() => {
+    pickNewTarget();
+  }, [pickNewTarget]);
 
   useEffect(() => {
     let raf: number;
@@ -82,7 +106,7 @@ export default function PixelCat() {
       cancelAnimationFrame(raf);
       if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current);
     };
-  }, [target]);
+  }, [target, pickNewTarget]);
 
   useEffect(() => {
     let lastX = 0;
@@ -95,14 +119,17 @@ export default function PixelCat() {
       const cursorSpeed = dx / dt;
 
       const bounds = catRef.current?.getBoundingClientRect();
-      const distance =
-        (bounds && Math.abs(e.clientX - (bounds.left + bounds.width / 2))) || 0;
 
-      if (sceneRef.current === "walk" && cursorSpeed > 2 && distance < 100) {
-        setScene("attack");
-        setTimeout(() => {
-          setScene("walk");
-        }, 1000);
+      if (bounds) {
+        const catCenterX = bounds.left + bounds.width / 2;
+        const catCenterY = bounds.top + bounds.height / 2;
+        const dx = e.clientX - catCenterX;
+        const dy = e.clientY - catCenterY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+
+        if (sceneRef.current === "walk" && cursorSpeed > 2 && distance < 100) {
+          playScene("attack", 1000, pickNewTarget);
+        }
       }
 
       lastX = e.clientX;
@@ -111,7 +138,7 @@ export default function PixelCat() {
 
     window.addEventListener("mousemove", onMouseMove);
     return () => window.removeEventListener("mousemove", onMouseMove);
-  }, []);
+  }, [pickNewTarget]);
 
   const current = sprites[scene];
   const animation = `${scene} ${current.duration} steps(${current.frames}) ${
@@ -124,8 +151,7 @@ export default function PixelCat() {
       className="fixed left-8 top-16 z-50"
       onClick={() => {
         if (sceneRef.current !== "hurt") {
-          setScene("hurt");
-          setTimeout(() => setScene("walk"), 600);
+          playScene("hurt", 1000, pickNewTarget);
         }
       }}
       style={{
