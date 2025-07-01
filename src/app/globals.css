@@ -66,18 +66,24 @@
   --shadow-2xl: var(--shadow-2xl);
 }
 
-@layer utilities {
-  @keyframes walk {
-    from {
-      background-position: 0 0;
-    }
-    to {
-      background-position: -960px 0;
-    }
+@keyframes walk {
+  from {
+    background-position-x: 0;
   }
 
-  .animate-walk {
-    animation: walk 1s steps(10) infinite;
+  to {
+    background-position-x: -960px;
+  }
+}
+
+@keyframes idle {
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: -640px;
+    /* (8 - 1) * 80 */
   }
 }
 
