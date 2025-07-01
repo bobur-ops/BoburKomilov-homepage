@@ -1,4 +1,4 @@
-type Scene = "walk" | "idle" | "hurt" | "attack";
+export type Scene = "walk" | "idle" | "hurt" | "attack" | "run";
 
 export const sprites: Record<
   Scene,
@@ -16,7 +16,7 @@ export const sprites: Record<
     url: "/cat/HURT.png",
     frames: 4,
     width: 80,
-    duration: "0.6s",
+    duration: "1s",
     oneShot: true,
   },
   attack: {
@@ -25,5 +25,12 @@ export const sprites: Record<
     width: 80,
     duration: "1s",
     oneShot: true,
+  },
+  run: {
+    url: "/cat/RUN.png",
+    frames: 8,
+    width: 80,
+    duration: "0.8s",
+    oneShot: false,
   },
 };

@@ -1,97 +1,143 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { Scene, sprites } from "./consts";
 
 const SPEED = 40;
+const IDLE_TIME = 3000;
 
 export default function PixelCat() {
-  const [x, setX] = useState(0);
+  const [position, setPosition] = useState({ x: 0, y: 100 });
+  const [target, setTarget] = useState({ x: 200, y: 100 });
   const [direction, setDirection] = useState<"left" | "right">("right");
-  const [isIdle, setIsIdle] = useState(false);
-  const isIdleRef = useRef(false);
-  const lastIdleTime = useRef(Date.now());
+  const [scene, setScene] = useState<Scene>("walk");
+  const sceneRef = useRef<Scene>("walk");
+  const catRef = useRef<HTMLDivElement | null>(null);
+  const idleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    isIdleRef.current = isIdle;
-  }, [isIdle]);
+    sceneRef.current = scene;
+  }, [scene]);
+
+  const pickNewTarget = () => {
+    const margin = 80;
+    const newX = Math.random() * (window.innerWidth - margin);
+    const newY = Math.random() * (window.innerHeight - 200); // avoid footer/header
+    setTarget({ x: newX, y: newY });
+    setDirection(newX > position.x ? "right" : "left");
+    setScene("walk");
+  };
 
   useEffect(() => {
     let raf: number;
     let last = performance.now();
-    let idleTimeout: NodeJS.Timeout | null = null;
 
-    const maybeIdle = () => {
-      const now = Date.now();
-      const timeSinceLastIdle = now - lastIdleTime.current;
-
-      if (timeSinceLastIdle > 6000 && Math.random() < 0.005) {
-        setIsIdle(true);
-        lastIdleTime.current = now;
-
-        idleTimeout = setTimeout(() => {
-          setIsIdle(false);
-        }, 3000);
-      }
-    };
-
-    const walk = (time: number) => {
+    const step = (time: number) => {
       const delta = time - last;
       last = time;
 
-      if (!isIdleRef.current) {
-        setX((prev) => {
-          const step = (delta / 1000) * SPEED;
+      if (sceneRef.current === "walk") {
+        setPosition((prev) => {
+          const dx = target.x - prev.x;
+          const dy = target.y - prev.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
 
-          let next = direction === "right" ? prev + step : prev - step;
-
-          if (next > window.innerWidth - 80) {
-            setDirection("left");
-            next = window.innerWidth - 80;
-          } else if (next < 0) {
-            setDirection("right");
-            next = 0;
+          if (Math.abs(dx) > 1) {
+            setDirection(dx > 0 ? "right" : "left");
           }
 
-          return next;
-        });
+          if (dist < 2) {
+            if (!idleTimeoutRef.current) {
+              setScene("idle");
+              idleTimeoutRef.current = setTimeout(() => {
+                idleTimeoutRef.current = null;
+                pickNewTarget();
+              }, IDLE_TIME);
+            }
+            return prev;
+          }
 
-        maybeIdle();
+          const stepSize = (delta / 1000) * SPEED;
+          const ratio = stepSize / dist;
+
+          return {
+            x: prev.x + dx * ratio,
+            y: prev.y + dy * ratio,
+          };
+        });
       }
 
-      raf = requestAnimationFrame(walk);
+      raf = requestAnimationFrame(step);
     };
 
-    raf = requestAnimationFrame(walk);
-
+    raf = requestAnimationFrame(step);
     return () => {
       cancelAnimationFrame(raf);
-      if (idleTimeout) clearTimeout(idleTimeout);
+      if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current);
     };
-  }, [direction]);
+  }, [target]);
 
-  const sprite = isIdle ? "/cat/IDLE.png" : "/cat/WALK.png";
-  const animation = isIdle
-    ? "idle 1.2s steps(8) infinite"
-    : "walk 1.5s steps(12) infinite";
+  useEffect(() => {
+    let lastX = 0;
+    let lastTime = Date.now();
+
+    const onMouseMove = (e: MouseEvent) => {
+      const now = Date.now();
+      const dx = Math.abs(e.clientX - lastX);
+      const dt = now - lastTime;
+      const cursorSpeed = dx / dt;
+
+      const bounds = catRef.current?.getBoundingClientRect();
+      const distance =
+        (bounds && Math.abs(e.clientX - (bounds.left + bounds.width / 2))) || 0;
+
+      if (sceneRef.current === "walk" && cursorSpeed > 2 && distance < 100) {
+        setScene("attack");
+        setTimeout(() => {
+          setScene("walk");
+        }, 1000);
+      }
+
+      lastX = e.clientX;
+      lastTime = now;
+    };
+
+    window.addEventListener("mousemove", onMouseMove);
+    return () => window.removeEventListener("mousemove", onMouseMove);
+  }, []);
+
+  const current = sprites[scene];
+  const animation = `${scene} ${current.duration} steps(${current.frames}) ${
+    current.oneShot ? "1" : "infinite"
+  }`;
 
   return (
     <div
-      className="fixed left-0 top-16 z-50"
+      ref={catRef}
+      className="fixed left-8 top-16 z-50"
+      onClick={() => {
+        if (sceneRef.current !== "hurt") {
+          setScene("hurt");
+          setTimeout(() => setScene("walk"), 600);
+        }
+      }}
       style={{
-        transform: `translateX(${x}px) scaleX(${
+        transform: `translate(${position.x}px, ${position.y}px) scaleX(${
           direction === "right" ? -1 : 1
-        }) scale(1.5)`,
+        }) scale(${
+          typeof window !== "undefined" && window.innerWidth < 768 ? 1.5 : 2
+        })`,
         transformOrigin: "center",
-        width: "80px",
+        width: `${current.width}px`,
         height: "64px",
         overflow: "hidden",
       }}
     >
       <div
         style={{
-          width: isIdle ? "640px" : "960px",
+          width: current.frames * current.width,
           height: "64px",
-          backgroundImage: `url('${sprite}')`,
+          backgroundImage: `url('${current.url}')`,
           backgroundRepeat: "no-repeat",
           animation,
           imageRendering: "pixelated",

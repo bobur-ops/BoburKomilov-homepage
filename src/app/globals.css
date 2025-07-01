@@ -83,7 +83,33 @@
 
   to {
     background-position-x: -640px;
-    /* (8 - 1) * 80 */
+  }
+}
+@keyframes attack {
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: -640px;
+  }
+}
+@keyframes run {
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: -640px;
+  }
+}
+@keyframes hurt {
+  from {
+    background-position-x: 0;
+  }
+
+  to {
+    background-position-x: -320;
   }
 }
 
