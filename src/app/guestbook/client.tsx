@@ -5,6 +5,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getGuestbookMessages, postGuestbookMessage } from "./api";
 import { useState } from "react";
+import { format } from "date-fns";
 
 export default function GuestbookClient() {
   const queryClient = useQueryClient();
@@ -57,7 +58,7 @@ export default function GuestbookClient() {
           <li key={msg.id} className="border-b pb-2 text-sm">
             <p>{msg.body}</p>
             <span className="text-muted-foreground text-xs">
-              {new Date(msg.date).toLocaleString()}
+              {format(new Date(msg.date), "PPpp")}
             </span>
           </li>
         ))}
