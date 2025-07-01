@@ -51,7 +51,45 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <Providers>
-          <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+          <ThemeProvider
+            attribute="class"
+            defaultTheme="claude-dark"
+            enableSystem
+            themes={[
+              "claude-dark",
+              "claude-light",
+              "catpuccin-dark",
+              "catpuccin-light",
+              "amber-minimal-dark",
+              "amber-minimal-light",
+              "bubblegum-dark",
+              "bubblegum-light",
+              "caffeine-dark",
+              "caffeine-light",
+              "cosmic-night-dark",
+              "cosmic-night-light",
+              "cyberpunk-dark",
+              "cyberpunk-light",
+              "doom-dark",
+              "doom-light",
+              "elegant-luxury-dark",
+              "elegant-luxury-light",
+              "graphite-dark",
+              "graphite-light",
+              "kodama-grove-dark",
+              "kodama-grove-light",
+              "mono-dark",
+              "mono-light",
+              "nature-dark",
+              "nature-light",
+              "clean-slate-dark",
+              "clean-slate-light",
+              "tangerine-dark",
+              "tangerine-light",
+              "vintage-paper-dark",
+              "vintage-paper-light",
+            ]}
+          >
             <div className="min-h-[100dvh] overflow-y-auto max-w-4xl mx-auto pt-14 px-2 md:px-4 lg:px-0">
               <Navbar />
               <>{children}</>

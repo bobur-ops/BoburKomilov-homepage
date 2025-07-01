@@ -3,6 +3,7 @@ import Link from "next/link";
 import Portal from "./Portal";
 import MobileLinksMenu from "./MobileLinksMenu";
 import NavbarLink from "./NavbarLink";
+import ThemePalette from "@/features/theme/ThemePalette";
 
 export default function Navbar() {
   return (
@@ -24,6 +25,7 @@ export default function Navbar() {
           </div>
           <div className="flex items-center gap-2">
             <ThemeSwitcher />
+            <ThemePalette />
             <MobileLinksMenu />
           </div>
         </div>

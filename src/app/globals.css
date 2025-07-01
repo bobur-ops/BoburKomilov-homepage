@@ -1,9 +1,17 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "../themes/claude.css";
+@import "../themes/themes.css";
 @plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
+
+:root {
+  --font-sans: Geist Mono, monospace;
+  --font-serif: Geist Mono, monospace;
+  --font-mono: Geist Mono, monospace;
+
+  --radius: 0rem;
+}
 
 @theme inline {
   --color-background: var(--background);

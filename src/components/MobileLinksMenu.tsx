@@ -17,7 +17,6 @@ export default function MobileLinksMenu() {
   const pathname = usePathname();
 
   useEffect(() => {
-    // Close the menu when the pathname changes
     setIsOpen(false);
   }, [pathname]);
 

@@ -1,4 +1,4 @@
-:root {
+.claude-light {
   --background: oklch(0.9818 0.0054 95.0986);
   --foreground: oklch(0.3438 0.0269 95.7226);
   --card: oklch(0.9818 0.0054 95.0986);
@@ -32,12 +32,6 @@
   --sidebar-border: oklch(0.9401 0 0);
   --sidebar-ring: oklch(0.7731 0 0);
 
-  --font-sans: Geist Mono, monospace;
-  --font-serif: Geist Mono, monospace;
-  --font-mono: Geist Mono, monospace;
-
-  --radius: 0rem;
-
   --shadow-2xs: 0px 1px 0px 0px hsl(0 0% 0% / 0);
   --shadow-xs: 0px 1px 0px 0px hsl(0 0% 0% / 0);
   --shadow-sm: 0px 1px 0px 0px hsl(0 0% 0% / 0),
@@ -52,7 +46,7 @@
   --shadow-2xl: 0px 1px 0px 0px hsl(0 0% 0% / 0);
 }
 
-.dark {
+.claude-dark {
   --background: oklch(0.2679 0.0036 106.6427);
   --foreground: oklch(0.8074 0.0142 93.0137);
   --card: oklch(0.2679 0.0036 106.6427);
@@ -85,12 +79,6 @@
   --sidebar-accent-foreground: oklch(0.8074 0.0142 93.0137);
   --sidebar-border: oklch(0.9401 0 0);
   --sidebar-ring: oklch(0.7731 0 0);
-
-  --font-sans: Geist Mono, monospace;
-  --font-serif: Geist Mono, monospace;
-  --font-mono: Geist Mono, monospace;
-
-  --radius: 0rem;
 
   --shadow-2xs: 0px 1px 0px 0px hsl(0 0% 0% / 0);
   --shadow-xs: 0px 1px 0px 0px hsl(0 0% 0% / 0);
