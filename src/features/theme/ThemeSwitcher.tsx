@@ -4,6 +4,7 @@ import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
 import { motion } from "motion/react";
+import { FALLBACK_DEFAULT_THEME } from "./consts";
 
 export default function ThemeSwitcher() {
   const { resolvedTheme, setTheme, theme } = useTheme();
@@ -26,12 +27,12 @@ export default function ThemeSwitcher() {
 
   const toggleTheme = () => {
     const isDark = resolvedTheme?.includes("dark");
-    let baseTheme = "claude-light";
+    let baseTheme = FALLBACK_DEFAULT_THEME;
 
     if (isDark) {
-      baseTheme = theme?.replace("dark", "light") || "claude-light";
+      baseTheme = theme?.replace("dark", "light") || "vintage-paper-light";
     } else {
-      baseTheme = theme?.replace("light", "dark") || "claude-dark";
+      baseTheme = theme?.replace("light", "dark") || "vintage-paper-dark";
     }
     setTheme(baseTheme);
   };

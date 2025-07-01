@@ -4,6 +4,7 @@ import "./globals.css";
 import { ThemeProvider } from "next-themes";
 import Navbar from "@/components/Navbar";
 import Providers from "./providers";
+import { FALLBACK_DEFAULT_THEME } from "@/features/theme/consts";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,7 +54,7 @@ export default function RootLayout({
         <Providers>
           <ThemeProvider
             attribute="class"
-            defaultTheme="claude-dark"
+            defaultTheme={FALLBACK_DEFAULT_THEME}
             enableSystem
             storageKey="theme-v0.1"
             themes={[

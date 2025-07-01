@@ -10,25 +10,7 @@ import { cn } from "@/lib/utils";
 import { Palette } from "lucide-react";
 import { useTheme } from "next-themes";
 import { useEffect, useState } from "react";
-
-const themeOptions = [
-  { name: "Claude", value: "claude" },
-  { name: "Catpuccin", value: "catpuccin" },
-  { name: "Amber", value: "amber-minimal" },
-  { name: "Bubblegum", value: "bubblegum" },
-  { name: "Caffeine", value: "caffeine" },
-  { name: "Cosmic Night", value: "cosmic-night" },
-  { name: "Cyberpunk", value: "cyberpunk" },
-  { name: "Doom", value: "doom" },
-  { name: "Elegant Luxury", value: "elegant-luxury" },
-  { name: "Graphite", value: "graphite" },
-  { name: "Kodama Grove", value: "kodama-grove" },
-  { name: "Mono", value: "mono" },
-  { name: "Nature", value: "nature" },
-  { name: "Clean Slate", value: "clean-slate" },
-  { name: "Tangerine", value: "tangerine" },
-  { name: "Vintage Paper", value: "vintage-paper" },
-];
+import { themeOptions } from "./consts";
 
 export default function ThemePalette() {
   const { resolvedTheme, setTheme } = useTheme();
@@ -59,12 +41,25 @@ export default function ThemePalette() {
             key={theme.value}
             onClick={() => handleChangeTheme(theme.value)}
             className={cn({
-              "bg-primary text-primary-foreground": resolvedTheme?.includes(
+              "bg-accent text-accent-foreground": resolvedTheme?.includes(
                 theme.value
               ),
             })}
           >
-            <div>{theme.name}</div>
+            <div className="flex items-center gap-2">
+              <div className="flex items-center gap-0.5">
+                {theme.colors[
+                  resolvedTheme?.includes("dark") ? "dark" : "light"
+                ].map((color, index) => (
+                  <div
+                    key={index}
+                    className="w-3 h-3"
+                    style={{ backgroundColor: color }}
+                  ></div>
+                ))}
+              </div>
+              <div className="font-medium">{theme.name}</div>
+            </div>
           </DropdownMenuItem>
         ))}
       </DropdownMenuContent>
