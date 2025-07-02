@@ -3,7 +3,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Scene, sprites } from "./consts";
 
-const SPEED = 40;
+const SPEED = 25;
 const IDLE_TIME = 3000;
 
 export default function PixelCat() {
@@ -88,6 +88,15 @@ export default function PixelCat() {
                 pickNewTarget();
               }, IDLE_TIME);
             }
+            return prev;
+          }
+
+          if (!idleTimeoutRef.current && Math.random() < 0.0007) {
+            setScene("idle");
+            idleTimeoutRef.current = setTimeout(() => {
+              idleTimeoutRef.current = null;
+              setScene("walk");
+            }, IDLE_TIME);
             return prev;
           }
 
