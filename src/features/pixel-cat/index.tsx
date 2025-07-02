@@ -46,16 +46,20 @@ export default function PixelCat() {
     const maxY = window.innerHeight - spriteHeight - margin;
 
     const newX = Math.max(margin, Math.random() * maxX);
-    const newY = Math.max(margin, Math.random() * maxY);
 
-    setTarget(() => ({ x: newX, y: newY }));
-
+    // Limit Y offset to reduce vertical movement
     setPosition((prev) => {
-      setDirection(newX > prev.x ? "right" : "left");
-      return prev;
-    });
+      const maxYOffset = 200; // max vertical movement
+      const minY = Math.max(margin, prev.y - maxYOffset);
+      const maxYClamped = Math.min(maxY, prev.y + maxYOffset);
+      const newY = Math.random() * (maxYClamped - minY) + minY;
 
-    setScene("walk");
+      setTarget(() => ({ x: newX, y: newY }));
+      setDirection(newX > prev.x ? "right" : "left");
+      setScene("walk");
+
+      return prev; // keep position unchanged here; actual movement happens elsewhere
+    });
   }, []);
 
   useEffect(() => {
