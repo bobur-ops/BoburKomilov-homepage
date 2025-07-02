@@ -34,3 +34,29 @@ export const sprites: Record<
     oneShot: false,
   },
 };
+
+export const messages = [
+  // 🧭 Interaction hints
+  "Click me!",
+  "Double-click anywhere to make me run!",
+  "Move your mouse fast nearby to scare me!",
+  "Try double-clicking near me!",
+  "Can you make me attack?",
+
+  // 🐾 Personality & vibes
+  "I love walking 🌟",
+  "I'm just vibing 🐾",
+  "Do you like cats?",
+  "Pet me... I dare you.",
+  "I'm watching you 👀",
+  "Life is better with pixels.",
+  "I'm not lazy, just energy efficient.",
+
+  // 🌙 Idle / chill mode
+  "*stares into the void*",
+  "Just stretching my paws.",
+  "Meow. (That's it, that's the message.)",
+  "I could nap right here...",
+  "Sometimes I just stop and think...",
+  "I'm plotting world domination.",
+];

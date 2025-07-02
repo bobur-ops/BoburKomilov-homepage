@@ -1,7 +1,8 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Scene, sprites } from "./consts";
+import { messages, Scene, sprites } from "./consts";
+import { randomChance } from "@/utils/randomChance";
 
 const WALK_SPEED = 25;
 const RUN_SPEED = 75;
@@ -19,6 +20,8 @@ export default function PixelCat() {
   const sceneRef = useRef<Scene>("walk");
   const catRef = useRef<HTMLDivElement | null>(null);
   const idleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const [showBubble, setShowBubble] = useState(false);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     sceneRef.current = scene;
@@ -29,6 +32,19 @@ export default function PixelCat() {
       const img = new Image();
       img.src = sprite.url;
     });
+  }, []);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      if (randomChance(0.18)) {
+        setMessage(messages[Math.floor(Math.random() * messages.length)]);
+        setShowBubble(true);
+
+        setTimeout(() => setShowBubble(false), 3000);
+      }
+    }, 6000);
+
+    return () => clearInterval(interval);
   }, []);
 
   const playScene = (name: Scene, duration: number, then: () => void) => {
@@ -97,7 +113,7 @@ export default function PixelCat() {
 
           if (
             !idleTimeoutRef.current &&
-            Math.random() < 0.0007 &&
+            randomChance(0.0007) &&
             sceneRef.current !== "run"
           ) {
             setScene("idle");
@@ -196,34 +212,49 @@ export default function PixelCat() {
 
   return (
     <div
-      ref={catRef}
-      className="fixed left-8 top-16 z-50"
-      onClick={() => {
-        if (sceneRef.current !== "hurt") {
-          playScene("hurt", 1000, pickNewTarget);
-        }
-      }}
       style={{
-        transform: `translate(${position.x}px, ${position.y}px) scaleX(${
-          direction === "right" ? -1 : 1
-        }) scale(1.5)`,
-        transformOrigin: "center",
-        width: `${current.width}px`,
-        height: "64px",
-        overflow: "hidden",
+        transform: `translate(${position.x}px, ${position.y}px)`,
       }}
+      className="fixed left-8 top-16 z-50"
     >
+      {showBubble && (
+        <div
+          className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs px-2 py-1.5 bg-accent text-foreground shadow-md"
+          style={{
+            whiteSpace: "nowrap",
+            imageRendering: "pixelated",
+          }}
+        >
+          {message}
+        </div>
+      )}
       <div
-        style={{
-          width: current.frames * current.width,
-          height: "64px",
-          backgroundImage: `url('${current.url}')`,
-          backgroundRepeat: "no-repeat",
-          animation,
-          imageRendering: "pixelated",
-          willChange: "transform, background-image",
+        ref={catRef}
+        onClick={() => {
+          if (sceneRef.current !== "hurt") {
+            playScene("hurt", 1000, pickNewTarget);
+          }
         }}
-      />
+        style={{
+          transform: `scaleX(${direction === "right" ? -1 : 1}) scale(1.5)`,
+          transformOrigin: "center",
+          width: `${current.width}px`,
+          height: "64px",
+          overflow: "hidden",
+        }}
+      >
+        <div
+          style={{
+            width: current.frames * current.width,
+            height: "64px",
+            backgroundImage: `url('${current.url}')`,
+            backgroundRepeat: "no-repeat",
+            animation,
+            imageRendering: "pixelated",
+            willChange: "transform, background-image",
+          }}
+        />
+      </div>
     </div>
   );
 }
