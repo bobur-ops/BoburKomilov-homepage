@@ -49,13 +49,17 @@ export default function PixelCat() {
   }, []);
 
   const playScene = (name: Scene, duration: number, then: () => void) => {
-    setScene(name);
-    requestAnimationFrame(() => {
-      void catRef.current?.offsetHeight;
-    });
-    setTimeout(() => {
-      then();
-    }, duration);
+    const img = new Image();
+    img.src = sprites[name].url;
+
+    img.onload = () => {
+      setScene(name);
+      requestAnimationFrame(() => {
+        void catRef.current?.offsetHeight;
+      });
+
+      setTimeout(then, duration);
+    };
   };
 
   const pickNewTarget = useCallback(() => {
