@@ -42,8 +42,11 @@ export default function PixelCat() {
     const spriteWidth = sprites.walk.width * 1.5;
     const spriteHeight = 64 * 1.5;
 
-    const newX = Math.random() * (window.innerWidth - spriteWidth - margin);
-    const newY = Math.random() * (window.innerHeight - spriteHeight - margin);
+    const maxX = window.innerWidth - spriteWidth - margin;
+    const maxY = window.innerHeight - spriteHeight - margin;
+
+    const newX = Math.max(margin, Math.random() * maxX);
+    const newY = Math.max(margin, Math.random() * maxY);
 
     setTarget(() => ({ x: newX, y: newY }));
 
