@@ -30,6 +30,7 @@ export default function PixelCat() {
   useEffect(() => {
     Object.values(sprites).forEach((sprite) => {
       const img = new Image();
+      img.decoding = "async";
       img.src = sprite.url;
     });
   }, []);
@@ -49,6 +50,9 @@ export default function PixelCat() {
 
   const playScene = (name: Scene, duration: number, then: () => void) => {
     setScene(name);
+    requestAnimationFrame(() => {
+      void catRef.current?.offsetHeight;
+    });
     setTimeout(() => {
       then();
     }, duration);
@@ -244,7 +248,7 @@ export default function PixelCat() {
         }}
       >
         <div
-          key="sprite"
+          key={"cat-sprite"}
           style={{
             width: current.frames * current.width,
             height: "64px",
@@ -253,7 +257,9 @@ export default function PixelCat() {
             backgroundPosition: "0 0",
             animation,
             imageRendering: "pixelated",
-            willChange: "transform, background-image",
+            willChange: "transform, background-position",
+            backfaceVisibility: "hidden",
+            transform: "translateZ(0)",
             transition: "none",
           }}
         />
