@@ -38,7 +38,7 @@ export default function LofiPlayer() {
 
       const audio = new Audio(randomTrack);
       audio.loop = true;
-      audio.volume = 0.009;
+      audio.volume = 0.001;
       audioRef.current = audio;
 
       audio
