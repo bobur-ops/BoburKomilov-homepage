@@ -210,9 +210,6 @@ export default function PixelCat() {
   }, []);
 
   const current = sprites[scene];
-  const animation = `${scene} ${current.duration} steps(${current.frames}) ${
-    current.oneShot ? "1" : "infinite"
-  }`;
 
   return (
     <div
@@ -248,18 +245,23 @@ export default function PixelCat() {
         }}
       >
         <div
-          key={"cat-sprite"}
           style={{
             width: current.frames * current.width,
             height: "64px",
             backgroundImage: `url('${current.url}')`,
             backgroundRepeat: "no-repeat",
             backgroundPosition: "0 0",
-            animation,
+
+            animationName: scene,
+            animationDuration: `${current.duration}`,
+            animationTimingFunction: `steps(${current.frames})`,
+            animationIterationCount: current.oneShot ? "1" : "infinite",
+            animationFillMode: "forwards",
+
             imageRendering: "pixelated",
-            willChange: "transform, background-position",
+            willChange: "background-position",
+            transform: "translateZ(0)", // optional: keep if Safari still benefits
             backfaceVisibility: "hidden",
-            transform: "translateZ(0)",
             transition: "none",
           }}
         />
