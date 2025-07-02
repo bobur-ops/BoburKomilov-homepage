@@ -3,7 +3,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Scene, sprites } from "./consts";
 
-const SPEED = 25;
+const WALK_SPEED = 25;
+const RUN_SPEED = 75;
 const IDLE_TIME = 3000;
 
 export default function PixelCat() {
@@ -47,9 +48,8 @@ export default function PixelCat() {
 
     const newX = Math.max(margin, Math.random() * maxX);
 
-    // Limit Y offset to reduce vertical movement
     setPosition((prev) => {
-      const maxYOffset = 200; // max vertical movement
+      const maxYOffset = 200;
       const minY = Math.max(margin, prev.y - maxYOffset);
       const maxYClamped = Math.min(maxY, prev.y + maxYOffset);
       const newY = Math.random() * (maxYClamped - minY) + minY;
@@ -58,7 +58,7 @@ export default function PixelCat() {
       setDirection(newX > prev.x ? "right" : "left");
       setScene("walk");
 
-      return prev; // keep position unchanged here; actual movement happens elsewhere
+      return prev;
     });
   }, []);
 
@@ -74,7 +74,7 @@ export default function PixelCat() {
       const delta = time - last;
       last = time;
 
-      if (sceneRef.current === "walk") {
+      if (sceneRef.current === "walk" || sceneRef.current === "run") {
         setPosition((prev) => {
           const dx = target.x - prev.x;
           const dy = target.y - prev.y;
@@ -95,7 +95,11 @@ export default function PixelCat() {
             return prev;
           }
 
-          if (!idleTimeoutRef.current && Math.random() < 0.0007) {
+          if (
+            !idleTimeoutRef.current &&
+            Math.random() < 0.0007 &&
+            sceneRef.current !== "run"
+          ) {
             setScene("idle");
             idleTimeoutRef.current = setTimeout(() => {
               idleTimeoutRef.current = null;
@@ -104,7 +108,10 @@ export default function PixelCat() {
             return prev;
           }
 
-          const stepSize = (delta / 1000) * SPEED;
+          const currentSpeed =
+            sceneRef.current === "run" ? RUN_SPEED : WALK_SPEED;
+
+          const stepSize = (delta / 1000) * currentSpeed;
           const ratio = stepSize / dist;
 
           return {
@@ -155,6 +162,32 @@ export default function PixelCat() {
     window.addEventListener("mousemove", onMouseMove);
     return () => window.removeEventListener("mousemove", onMouseMove);
   }, [pickNewTarget]);
+
+  useEffect(() => {
+    const handleDoubleClick = (e: MouseEvent) => {
+      const catOffsetTop = catRef.current?.offsetTop ?? 0;
+      const spriteHeight = sprites.run.width * 1.5;
+      const safeMargin = 64;
+      const maxY = window.innerHeight - spriteHeight - safeMargin;
+      const targetY = Math.max(
+        safeMargin,
+        Math.min(e.clientY - catOffsetTop, maxY)
+      );
+
+      setTarget({ x: e.clientX, y: targetY });
+      setScene("run");
+
+      if (idleTimeoutRef.current) {
+        clearTimeout(idleTimeoutRef.current);
+        idleTimeoutRef.current = null;
+      }
+    };
+
+    window.addEventListener("dblclick", handleDoubleClick);
+    return () => {
+      window.removeEventListener("dblclick", handleDoubleClick);
+    };
+  }, []);
 
   const current = sprites[scene];
   const animation = `${scene} ${current.duration} steps(${current.frames}) ${

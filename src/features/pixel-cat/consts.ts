@@ -30,7 +30,7 @@ export const sprites: Record<
     url: "/cat/RUN.png",
     frames: 8,
     width: 80,
-    duration: "0.8s",
+    duration: "1s",
     oneShot: false,
   },
 };
