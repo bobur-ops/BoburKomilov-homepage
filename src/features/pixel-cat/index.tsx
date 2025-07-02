@@ -110,6 +110,7 @@ export default function PixelCat() {
 
           if (dist < 2) {
             if (!idleTimeoutRef.current) {
+              setPosition(target);
               setScene("idle");
               idleTimeoutRef.current = setTimeout(() => {
                 idleTimeoutRef.current = null;
