@@ -167,7 +167,7 @@ export default function PixelCat() {
         const distance = Math.sqrt(dx * dx + dy * dy);
 
         if (sceneRef.current === "walk" && cursorSpeed > 2 && distance < 100) {
-          playScene("attack", 1000, pickNewTarget);
+          playScene("attack", 800, pickNewTarget);
         }
       }
 
@@ -232,7 +232,7 @@ export default function PixelCat() {
         ref={catRef}
         onClick={() => {
           if (sceneRef.current !== "hurt") {
-            playScene("hurt", 1000, pickNewTarget);
+            playScene("hurt", 800, pickNewTarget);
           }
         }}
         style={{
@@ -244,14 +244,17 @@ export default function PixelCat() {
         }}
       >
         <div
+          key="sprite"
           style={{
             width: current.frames * current.width,
             height: "64px",
             backgroundImage: `url('${current.url}')`,
             backgroundRepeat: "no-repeat",
+            backgroundPosition: "0 0",
             animation,
             imageRendering: "pixelated",
             willChange: "transform, background-image",
+            transition: "none",
           }}
         />
       </div>
