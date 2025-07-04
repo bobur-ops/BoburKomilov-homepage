@@ -2,5 +2,6 @@
 module.exports = {
   siteUrl: "https://www.bobur.me",
   generateRobotsTxt: true,
-  sitemapSize: 5000,
+  sitemapSize: 50000,
+  generateIndexSitemap: false,
 };
