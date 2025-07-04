@@ -80,7 +80,7 @@ export default function PixelCat() {
 
       setTarget(() => ({ x: newX, y: newY }));
       setDirection(newX > prev.x ? "right" : "left");
-      setScene("walk");
+      playScene("walk", 1200, () => {});
 
       return prev;
     });
@@ -111,7 +111,7 @@ export default function PixelCat() {
           if (dist < 2) {
             if (!idleTimeoutRef.current) {
               setPosition(target);
-              setScene("idle");
+              playScene("idle", 1500, () => {});
               idleTimeoutRef.current = setTimeout(() => {
                 idleTimeoutRef.current = null;
                 pickNewTarget();
@@ -125,7 +125,6 @@ export default function PixelCat() {
             randomChance(0.0007) &&
             sceneRef.current !== "run"
           ) {
-            setScene("idle");
             playScene("idle", 1500, () => {});
             idleTimeoutRef.current = setTimeout(() => {
               idleTimeoutRef.current = null;
