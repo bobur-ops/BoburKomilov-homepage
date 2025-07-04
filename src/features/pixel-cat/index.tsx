@@ -126,9 +126,10 @@ export default function PixelCat() {
             sceneRef.current !== "run"
           ) {
             setScene("idle");
+            playScene("idle", 1500, () => {});
             idleTimeoutRef.current = setTimeout(() => {
               idleTimeoutRef.current = null;
-              setScene("walk");
+              playScene("walk", 1200, () => {});
             }, IDLE_TIME);
             return prev;
           }
@@ -200,7 +201,7 @@ export default function PixelCat() {
       );
 
       setTarget({ x: e.clientX, y: targetY });
-      setScene("run");
+      playScene("run", 800, () => {});
 
       if (idleTimeoutRef.current) {
         clearTimeout(idleTimeoutRef.current);
