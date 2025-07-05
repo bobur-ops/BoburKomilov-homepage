@@ -98,7 +98,7 @@ export default function PixelCat() {
       const delta = time - last;
       last = time;
 
-      if (sceneRef.current === "walk" || sceneRef.current === "run") {
+      if (["walk", "run"].includes(sceneRef.current)) {
         setPosition((prev) => {
           const dx = target.x - prev.x;
           const dy = target.y - prev.y;
@@ -157,15 +157,7 @@ export default function PixelCat() {
   }, [target, pickNewTarget]);
 
   useEffect(() => {
-    let lastX = 0;
-    let lastTime = Date.now();
-
     const onMouseMove = (e: MouseEvent) => {
-      const now = Date.now();
-      const dx = Math.abs(e.clientX - lastX);
-      const dt = now - lastTime;
-      const cursorSpeed = dx / dt;
-
       const bounds = catRef.current?.getBoundingClientRect();
 
       if (bounds) {
@@ -175,13 +167,10 @@ export default function PixelCat() {
         const dy = e.clientY - catCenterY;
         const distance = Math.sqrt(dx * dx + dy * dy);
 
-        if (sceneRef.current === "walk" && cursorSpeed > 2 && distance < 100) {
+        if (["walk", "idle"].includes(sceneRef.current) && distance < 100) {
           playScene("attack", 800, pickNewTarget);
         }
       }
-
-      lastX = e.clientX;
-      lastTime = now;
     };
 
     window.addEventListener("mousemove", onMouseMove);
@@ -265,7 +254,7 @@ export default function PixelCat() {
 
             imageRendering: "pixelated",
             willChange: "background-position",
-            transform: "translateZ(0)", // optional: keep if Safari still benefits
+            transform: "translateZ(0)",
             backfaceVisibility: "hidden",
             transition: "none",
           }}
