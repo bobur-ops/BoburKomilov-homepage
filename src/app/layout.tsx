@@ -7,6 +7,8 @@ import Providers from "./providers";
 import { FALLBACK_DEFAULT_THEME } from "@/features/theme/consts";
 import { ScrollProgress } from "@/components/magicui/scroll-progress";
 import PixelCat from "@/features/pixel-cat";
+import Script from "next/script";
+import GATracker from "@/components/GaTracker";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -53,9 +55,28 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <Script
+          strategy="afterInteractive"
+          src="https://www.googletagmanager.com/gtag/js?id=G-GH2DFPSNBB"
+        />
+        <Script
+          id="ga-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'G-GH2DFPSNBB');
+            `,
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <GATracker />
         <Providers>
           <ThemeProvider
             attribute="class"
