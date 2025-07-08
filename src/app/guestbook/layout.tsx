@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { PropsWithChildren } from "react";
 
 export const metadata: Metadata = {
-  title: "Bobur Komiljonov - Guestbook",
+  title: "Muxammadbobur Komiljonov Guestbook",
   description:
     "Muxammadbobur Komiljonov's guestbook where you can leave messages and feedback",
   authors: [{ name: "Muxammadbobur Komiljonov" }],
@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://www.bobur.me/guestbook"),
   openGraph: {
-    title: "Muxammadbobur Komiljonov - Guestbook",
+    title: "Muxammadbobur Komiljonov Guestbook",
     description:
       "Leave your messages and feedback in Muxammadbobur Komiljonov's guestbook",
     url: "https://www.bobur.me/guestbook",

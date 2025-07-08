@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { PropsWithChildren } from "react";
 
 export const metadata: Metadata = {
-  title: "Bobur Komiljonov - Uses",
+  title: "Muxammadbobur Komiljonov Uses",
   description: "Muxammadbobur Komiljonov's tech stack and tools",
   authors: [{ name: "Muxammadbobur Komiljonov" }],
   keywords: [
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://www.bobur.me/uses"),
   openGraph: {
-    title: "Muxammadbobur Komiljonov - Uses",
+    title: "MuxammadMuxammadbobur Komiljonov Uses",
     description:
       "Discover the tech stack and tools used by Muxammadbobur Komiljonov",
     url: "https://www.bobur.me/uses",

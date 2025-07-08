@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { PropsWithChildren } from "react";
 
 export const metadata: Metadata = {
-  title: "Bobur Komiljonov - Git",
+  title: "Muxammadbobur Komiljonov Git",
   description:
     "Git stats and contributions of Muxammadbobur Komiljonov, showcasing his work in frontend development and open source contributions.",
   authors: [{ name: "Muxammadbobur Komiljonov" }],
@@ -22,7 +22,7 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://www.bobur.me/git"),
   openGraph: {
-    title: "Muxammadbobur Komiljonov - Git",
+    title: "Muxammadbobur Komiljonov Git",
     description:
       "Git stats and contributions of Muxammadbobur Komiljonov, showcasing his work in frontend development and open source contributions.",
     url: "https://www.bobur.me/git",

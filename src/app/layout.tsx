@@ -21,9 +21,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Bobur Komiljonov - Frontend Developer Portfolio",
+  title: "Muxammadbobur Komiljonov Homepage",
   description:
-    "Muxammadbobur Komiljonov is a frontend developer from Tashkent specializing in React, Vue, and scalable web apps. Discover his latest projects, experience with Yandex and Smart-Base, and download his CV.",
+    "Muxammadbobur Komiljonov is a frontend developer from Tashkent specializing in React, Vue, and scalable web apps",
   authors: [{ name: "Muxammadbobur Komiljonov" }],
   keywords: [
     "Frontend",
@@ -36,7 +36,7 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://www.bobur.me"),
   openGraph: {
-    title: "Muxammadbobur Komiljonov - Frontend Developer",
+    title: "Muxammadbobur Komiljonov Homepage",
     description: "Personal portfolio and blog",
     url: "https://www.bobur.me",
     siteName: "Muxammadbobur Komiljonov",

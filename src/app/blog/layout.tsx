@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { PropsWithChildren } from "react";
 
 export const metadata: Metadata = {
-  title: "Bobur Komiljonov - Blog",
+  title: "Muxammadbobur Komiljonov Blog",
   description:
     "Muxammadbobur Komiljonov's Blog, where he shares insights on frontend development, React, and his journey as a developer in Uzbekistan.",
   authors: [{ name: "Muxammadbobur Komiljonov" }],
@@ -24,7 +24,7 @@ export const metadata: Metadata = {
   ],
   metadataBase: new URL("https://www.bobur.me/blog"),
   openGraph: {
-    title: "Muxammadbobur Komiljonov - Blog",
+    title: "Muxammadbobur Komiljonov Blog",
     description:
       "Muxammadbobur Komiljonov's Blog, where he shares insights on frontend development, React, and his journey as a developer in Uzbekistan.",
     url: "https://www.bobur.me/blog",
