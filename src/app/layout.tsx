@@ -25,6 +25,9 @@ export const metadata: Metadata = {
   description:
     "Muxammadbobur Komiljonov is a frontend developer from Tashkent specializing in React, Vue, and scalable web apps",
   authors: [{ name: "Muxammadbobur Komiljonov" }],
+  verification: {
+    google: "HbRhtiiQwV2-b7_v6LDPUXQuI46oHwrhLFT8WqGDZK4", // 👈 This is the key part
+  },
   keywords: [
     "Frontend",
     "React",
