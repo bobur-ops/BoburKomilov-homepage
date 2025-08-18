@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import readingTime from "reading-time";
 import RemoteBlurImage from "@/components/BlurImage";
 import { getCoverImage } from "@/utils/getCoverImage";
+import { ScrollProgress } from "@/components/magicui/scroll-progress";
 
 export async function generateStaticParams() {
   const posts = await getPublishedPosts();
@@ -51,6 +52,7 @@ export default async function BlogPostPage(props: {
           "pt-[200px] md:pt-[350px]": coverImage,
         })}
       >
+        <ScrollProgress />
         <CreatedAt readTime={readTime} createdAt={createdAt} />
         {coverImage && (
           <Portal>

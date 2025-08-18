@@ -5,7 +5,7 @@ import { ThemeProvider } from "next-themes";
 import Navbar from "@/components/Navbar";
 import Providers from "./providers";
 import { FALLBACK_DEFAULT_THEME } from "@/features/theme/consts";
-import { ScrollProgress } from "@/components/magicui/scroll-progress";
+// import { ScrollProgress } from "@/components/magicui/scroll-progress";
 import PixelCat from "@/features/pixel-cat";
 import Script from "next/script";
 import GATracker from "@/components/GaTracker";
@@ -125,7 +125,7 @@ export default function RootLayout({
               <PixelCat />
 
               <Navbar />
-              <ScrollProgress />
+              {/* <ScrollProgress /> */}
               <>{children}</>
             </div>
 
