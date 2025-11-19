@@ -1,15 +1,11 @@
-export type Scene = "walk" | "idle" | "hurt" | "attack" | "run";
-
-export const sprites: Record<
+import type {
+  SpriteConfig,
+  MovementConfig,
+  InteractionConfig,
   Scene,
-  {
-    url: string;
-    frames: number;
-    width: number;
-    duration: string;
-    oneShot?: boolean;
-  }
-> = {
+} from "./model/types";
+
+export const sprites: Record<Scene, SpriteConfig> = {
   walk: { url: "/cat/WALK.png", frames: 12, width: 80, duration: "1.5s" },
   idle: { url: "/cat/IDLE.png", frames: 8, width: 80, duration: "1.2s" },
   hurt: {
@@ -60,3 +56,35 @@ export const messages = [
   "Sometimes I just stop and think...",
   "I'm plotting world domination.",
 ];
+
+export const MOVEMENT_CONFIG: MovementConfig = {
+  walkSpeed: 25,
+  runSpeed: 75,
+  idleTime: 3000,
+  margin: 80,
+  spriteScale: 1.5,
+  spriteHeight: 64,
+  maxYOffset: 200,
+};
+
+export const INTERACTION_CONFIG: InteractionConfig = {
+  attackDistance: 100,
+  mouseMoveThrottle: 100,
+  bubbleDisplayDuration: 3000,
+  bubbleCheckInterval: 6000,
+  bubbleChance: 0.25,
+  randomIdleChance: 0.0007,
+};
+
+export const SCENE_DURATIONS: Record<Scene, number> = {
+  walk: 1200,
+  idle: 1500,
+  hurt: 800,
+  attack: 800,
+  run: 800,
+};
+
+export const INITIAL_POSITION = { x: 0, y: 100 };
+
+export const MOVEMENT_THRESHOLD = 2;
+export const DIRECTION_THRESHOLD = 1;

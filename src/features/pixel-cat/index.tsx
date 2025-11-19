@@ -1,209 +1,45 @@
 "use client";
 
-import { useCallback, useEffect, useRef, useState } from "react";
-import { messages, Scene, sprites } from "./consts";
-import { randomChance } from "@/utils/randomChance";
-
-const WALK_SPEED = 25;
-const RUN_SPEED = 75;
-const IDLE_TIME = 3000;
+import { useRef, useEffect } from "react";
+import { sprites } from "./config";
+import { preloadSprites } from "./utils/preloadSprites";
+import { useReducedMotion } from "./hooks/useReducedMotion";
+import { useSceneController } from "./hooks/useSceneController";
+import { useMovement } from "./hooks/useMovement";
+import { useInteractions } from "./hooks/useInteractions";
+import { useSpeechBubble } from "./hooks/useSpeechBubble";
+import { CatSprite } from "./components/CatSprite";
+import { SpeechBubble } from "./components/SpeechBubble";
 
 export default function PixelCat() {
-  const [position, setPosition] = useState({ x: 0, y: 100 });
-  const [target, setTarget] = useState({
-    x: 150.90771343948535,
-    y: 309.99170040941084,
+  const catRef = useRef<HTMLDivElement | null>(null);
+  const reducedMotion = useReducedMotion();
+
+  useEffect(() => {
+    preloadSprites(sprites).catch((error) => {
+      console.warn("Failed to preload some sprites:", error);
+    });
+  }, []);
+
+  const { scene, sceneRef, playScene } = useSceneController(catRef);
+
+  const { position, direction, setTarget, pickNewTarget, clearIdleTimeout } = useMovement({
+    sceneRef,
+    playScene,
+    reducedMotion,
   });
 
-  const [direction, setDirection] = useState<"left" | "right">("right");
-  const [scene, setScene] = useState<Scene>("walk");
-  const sceneRef = useRef<Scene>("walk");
-  const catRef = useRef<HTMLDivElement | null>(null);
-  const idleTimeoutRef = useRef<NodeJS.Timeout | null>(null);
-  const [showBubble, setShowBubble] = useState(false);
-  const [message, setMessage] = useState("");
+  const { handleClick } = useInteractions({
+    catRef,
+    sceneRef,
+    playScene,
+    pickNewTarget,
+    setTarget,
+    clearIdleTimeout,
+    reducedMotion,
+  });
 
-  useEffect(() => {
-    sceneRef.current = scene;
-  }, [scene]);
-
-  useEffect(() => {
-    Object.values(sprites).forEach((sprite) => {
-      const img = new Image();
-      img.decoding = "async";
-      img.src = sprite.url;
-    });
-  }, []);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      if (randomChance(0.18)) {
-        setMessage(messages[Math.floor(Math.random() * messages.length)]);
-        setShowBubble(true);
-
-        setTimeout(() => setShowBubble(false), 3000);
-      }
-    }, 6000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  const playScene = (name: Scene, duration: number, then: () => void) => {
-    const img = new Image();
-    img.src = sprites[name].url;
-
-    img.onload = () => {
-      setScene(name);
-      requestAnimationFrame(() => {
-        void catRef.current?.offsetHeight;
-      });
-
-      setTimeout(then, duration);
-    };
-  };
-
-  const pickNewTarget = useCallback(() => {
-    const margin = 80;
-    const spriteWidth = sprites.walk.width * 1.5;
-    const spriteHeight = 64 * 1.5;
-
-    const maxX = window.innerWidth - spriteWidth - margin;
-    const maxY = window.innerHeight - spriteHeight - margin;
-
-    const newX = Math.max(margin, Math.random() * maxX);
-
-    setPosition((prev) => {
-      const maxYOffset = 200;
-      const minY = Math.max(margin, prev.y - maxYOffset);
-      const maxYClamped = Math.min(maxY, prev.y + maxYOffset);
-      const newY = Math.random() * (maxYClamped - minY) + minY;
-
-      setTarget(() => ({ x: newX, y: newY }));
-      setDirection(newX > prev.x ? "right" : "left");
-      playScene("walk", 1200, () => {});
-
-      return prev;
-    });
-  }, []);
-
-  useEffect(() => {
-    pickNewTarget();
-  }, [pickNewTarget]);
-
-  useEffect(() => {
-    let raf: number;
-    let last = performance.now();
-
-    const step = (time: number) => {
-      const delta = time - last;
-      last = time;
-
-      if (["walk", "run"].includes(sceneRef.current)) {
-        setPosition((prev) => {
-          const dx = target.x - prev.x;
-          const dy = target.y - prev.y;
-          const dist = Math.sqrt(dx * dx + dy * dy);
-
-          if (Math.abs(dx) > 1) {
-            setDirection(dx > 0 ? "right" : "left");
-          }
-
-          if (dist < 2) {
-            if (!idleTimeoutRef.current) {
-              setPosition(target);
-              playScene("idle", 1500, () => {});
-              idleTimeoutRef.current = setTimeout(() => {
-                idleTimeoutRef.current = null;
-                pickNewTarget();
-              }, IDLE_TIME);
-            }
-            return prev;
-          }
-
-          if (
-            !idleTimeoutRef.current &&
-            randomChance(0.0007) &&
-            sceneRef.current !== "run"
-          ) {
-            playScene("idle", 1500, () => {});
-            idleTimeoutRef.current = setTimeout(() => {
-              idleTimeoutRef.current = null;
-              playScene("walk", 1200, () => {});
-            }, IDLE_TIME);
-            return prev;
-          }
-
-          const currentSpeed =
-            sceneRef.current === "run" ? RUN_SPEED : WALK_SPEED;
-
-          const stepSize = (delta / 1000) * currentSpeed;
-          const ratio = stepSize / dist;
-
-          return {
-            x: prev.x + dx * ratio,
-            y: prev.y + dy * ratio,
-          };
-        });
-      }
-
-      raf = requestAnimationFrame(step);
-    };
-
-    raf = requestAnimationFrame(step);
-    return () => {
-      cancelAnimationFrame(raf);
-      if (idleTimeoutRef.current) clearTimeout(idleTimeoutRef.current);
-    };
-  }, [target, pickNewTarget]);
-
-  useEffect(() => {
-    const onMouseMove = (e: MouseEvent) => {
-      const bounds = catRef.current?.getBoundingClientRect();
-
-      if (bounds) {
-        const catCenterX = bounds.left + bounds.width / 2;
-        const catCenterY = bounds.top + bounds.height / 2;
-        const dx = e.clientX - catCenterX;
-        const dy = e.clientY - catCenterY;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-
-        if (["walk", "idle"].includes(sceneRef.current) && distance < 100) {
-          playScene("attack", 800, pickNewTarget);
-        }
-      }
-    };
-
-    window.addEventListener("mousemove", onMouseMove);
-    return () => window.removeEventListener("mousemove", onMouseMove);
-  }, [pickNewTarget]);
-
-  useEffect(() => {
-    const handleDoubleClick = (e: MouseEvent) => {
-      const catOffsetTop = catRef.current?.offsetTop ?? 0;
-      const spriteHeight = sprites.run.width * 1.5;
-      const safeMargin = 64;
-      const maxY = window.innerHeight - spriteHeight - safeMargin;
-      const targetY = Math.max(
-        safeMargin,
-        Math.min(e.clientY - catOffsetTop, maxY)
-      );
-
-      setTarget({ x: e.clientX, y: targetY });
-      playScene("run", 800, () => {});
-
-      if (idleTimeoutRef.current) {
-        clearTimeout(idleTimeoutRef.current);
-        idleTimeoutRef.current = null;
-      }
-    };
-
-    window.addEventListener("dblclick", handleDoubleClick);
-    return () => {
-      window.removeEventListener("dblclick", handleDoubleClick);
-    };
-  }, []);
-
-  const current = sprites[scene];
+  const { showBubble, message } = useSpeechBubble();
 
   return (
     <div
@@ -212,53 +48,9 @@ export default function PixelCat() {
       }}
       className="fixed left-8 top-16 z-50"
     >
-      {showBubble && (
-        <div
-          className="absolute -top-8 left-1/2 -translate-x-1/2 text-xs px-2 py-1.5 bg-accent text-foreground shadow-md"
-          style={{
-            whiteSpace: "nowrap",
-            imageRendering: "pixelated",
-          }}
-        >
-          {message}
-        </div>
-      )}
-      <div
-        ref={catRef}
-        onClick={() => {
-          if (sceneRef.current !== "hurt") {
-            playScene("hurt", 800, pickNewTarget);
-          }
-        }}
-        style={{
-          transform: `scaleX(${direction === "right" ? -1 : 1}) scale(1.5)`,
-          transformOrigin: "center",
-          width: `${current.width}px`,
-          height: "64px",
-          overflow: "hidden",
-        }}
-      >
-        <div
-          style={{
-            width: current.frames * current.width,
-            height: "64px",
-            backgroundImage: `url('${current.url}')`,
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "0 0",
-
-            animationName: scene,
-            animationDuration: `${current.duration}`,
-            animationTimingFunction: `steps(${current.frames})`,
-            animationIterationCount: current.oneShot ? "1" : "infinite",
-            animationFillMode: "forwards",
-
-            imageRendering: "pixelated",
-            willChange: "background-position",
-            transform: "translateZ(0)",
-            backfaceVisibility: "hidden",
-            transition: "none",
-          }}
-        />
+      <SpeechBubble message={message} visible={showBubble} />
+      <div ref={catRef}>
+        <CatSprite scene={scene} direction={direction} onClick={handleClick} />
       </div>
     </div>
   );
