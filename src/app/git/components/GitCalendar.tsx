@@ -9,14 +9,16 @@ import {
   ContributionGraphTotalCount,
 } from "@/components/kibo-ui/contribution-graph";
 import { cn } from "@/lib/utils";
-import { ContributionResponse } from "@/lib/contributions";
+import { ContributionResponse, getContributions } from "@/lib/contributions";
 import { Badge } from "@/components/ui/badge";
+import { useQuery } from "@tanstack/react-query";
 
-type Props = {
-  contributions?: ContributionResponse;
-};
+export default function GitCalendar() {
+  const { data, isLoading } = useQuery({
+    queryKey: ["contributions"],
+    queryFn: getContributions,
+  });
 
-export default function GitCalendar({ contributions }: Props) {
   return (
     <Card>
       <CardHeader>
@@ -25,16 +27,26 @@ export default function GitCalendar({ contributions }: Props) {
         </CardTitle>
       </CardHeader>
 
-      <CardContent>
-        <div className="overflow-auto">
-          <GithubCalendar contributions={contributions} />
+      {isLoading ? (
+        <div className="animate-pulse px-6 h-[168px]">
+          <div className="bg-secondary h-full w-full"></div>
         </div>
-      </CardContent>
+      ) : (
+        <CardContent>
+          <div className="overflow-auto">
+            <GithubCalendar contributions={data} />
+          </div>
+        </CardContent>
+      )}
     </Card>
   );
 }
 
-const GithubCalendar = ({ contributions }: Pick<Props, "contributions">) => {
+const GithubCalendar = ({
+  contributions,
+}: {
+  contributions?: ContributionResponse;
+}) => {
   const total = contributions?.total[new Date().getFullYear()] || 0;
 
   return (

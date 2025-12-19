@@ -76,7 +76,10 @@ export default function RepoGraph({ repos }: Props) {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full h-[600px] sm:h-[700px]">
+    <div
+      ref={containerRef}
+      className="relative w-full h-[600px] sm:h-[700px] border bg-secondary"
+    >
       <ForceGraph3D
         graphData={graphData}
         nodeAutoColorBy="group"
