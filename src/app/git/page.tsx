@@ -7,13 +7,15 @@ import LanguageChart from "./components/LanguageChart";
 import GitCalendar from "./components/GitCalendar";
 import GitQuickStats from "./components/GitQuickStats";
 import RepoGraph from "./components/RepoGraph";
+import { getContributions } from "@/lib/contributions";
 
 export default async function GitPage() {
   const username = "bobur-ops";
 
-  const [user, repos] = await Promise.all([
+  const [user, repos, contributions] = await Promise.all([
     getUserStats(username),
     getRepos(username),
+    getContributions(),
   ]);
 
   const languagesMap = new Map<string, number>();
@@ -81,7 +83,7 @@ export default async function GitPage() {
 
         <RepoGraph repos={repoGraphData} />
 
-        <GitCalendar />
+        <GitCalendar contributions={contributions} />
 
         <GitQuickStats
           stars={totalStars}
