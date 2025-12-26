@@ -8,6 +8,7 @@ import { FALLBACK_DEFAULT_THEME } from "@/features/theme/consts";
 import PixelCat from "@/features/pixel-cat";
 import Script from "next/script";
 import GATracker from "@/components/GaTracker";
+import PersonSchema from "@/components/PersonSchema";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -87,6 +88,8 @@ export default function RootLayout({
             `,
           }}
         />
+
+        <PersonSchema />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
@@ -135,8 +138,9 @@ export default function RootLayout({
           >
             <div className="min-h-[100dvh] overflow-y-auto max-w-4xl mx-auto pt-14 px-2 md:px-4 lg:px-0">
               <PixelCat />
-
+              <SeoNames />
               <Navbar />
+
               <>{children}</>
             </div>
 
@@ -147,3 +151,14 @@ export default function RootLayout({
     </html>
   );
 }
+
+const SeoNames = () => {
+  return (
+    <>
+      <span className="sr-only">Muhammadbobur Komiljonov</span>
+      <span className="sr-only">Muhammad Bobur Komiljonov</span>
+      <span className="sr-only">Muxammad Bobur Komiljonov</span>
+      <span className="sr-only">Bobur Komiljonov</span>
+    </>
+  );
+};
