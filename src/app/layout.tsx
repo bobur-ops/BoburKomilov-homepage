@@ -49,12 +49,12 @@ export const metadata: Metadata = {
     "Web Apps",
     "Muxammad Bobur Komiljonov Homepage",
   ],
-  metadataBase: new URL("https://www.bobur.me"),
+  metadataBase: new URL("https://bobur.me"),
   openGraph: {
     title: "Muxammadbobur Komiljonov Homepage",
     description:
       "Muxammadbobur Komiljonov is a frontend developer from Tashkent specializing in React, Vue, and scalable web apps",
-    url: "https://www.bobur.me",
+    url: "https://bobur.me",
     siteName: "Muxammadbobur Komiljonov",
     locale: "en_US",
     type: "website",

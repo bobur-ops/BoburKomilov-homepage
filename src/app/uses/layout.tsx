@@ -17,12 +17,12 @@ export const metadata: Metadata = {
     "Uses",
     "Tools",
   ],
-  metadataBase: new URL("https://www.bobur.me/uses"),
+  metadataBase: new URL("https://bobur.me/uses"),
   openGraph: {
     title: "MuxammadMuxammadbobur Komiljonov Uses",
     description:
       "Discover the tech stack and tools used by Muxammadbobur Komiljonov",
-    url: "https://www.bobur.me/uses",
+    url: "https://bobur.me/uses",
     siteName: "Muxammadbobur Komiljonov",
     locale: "en_US",
     type: "website",

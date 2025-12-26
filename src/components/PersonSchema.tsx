@@ -12,7 +12,7 @@ export default function PersonSchema() {
       "Muxammadbobur",
       "Muhammadbobur",
     ],
-    url: "https://www.bobur.me",
+    url: "https://bobur.me",
     jobTitle: "Frontend Developer",
     address: {
       "@type": "Place",

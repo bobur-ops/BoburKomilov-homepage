@@ -3,7 +3,7 @@ User-agent: *
 Allow: /
 
 # Host
-Host: https://www.bobur.me
+Host: https://bobur.me
 
 # Sitemaps
-Sitemap: https://www.bobur.me/sitemap.xml
+Sitemap: https://bobur.me/sitemap.xml

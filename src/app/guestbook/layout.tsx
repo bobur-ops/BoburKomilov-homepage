@@ -19,12 +19,12 @@ export const metadata: Metadata = {
     "Tools",
     "Guestbook",
   ],
-  metadataBase: new URL("https://www.bobur.me/guestbook"),
+  metadataBase: new URL("https://bobur.me/guestbook"),
   openGraph: {
     title: "Muxammadbobur Komiljonov Guestbook",
     description:
       "Leave your messages and feedback in Muxammadbobur Komiljonov's guestbook",
-    url: "https://www.bobur.me/guestbook",
+    url: "https://bobur.me/guestbook",
     siteName: "Muxammadbobur Komiljonov",
     locale: "en_US",
     type: "website",
