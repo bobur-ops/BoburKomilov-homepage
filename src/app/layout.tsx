@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     icon: "/favicon.png",
   },
   alternates: {
-    canonical: "/",
+    canonical: "https://bobur.me",
   },
 };
 
