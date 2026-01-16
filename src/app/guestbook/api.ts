@@ -1,6 +1,24 @@
 import axios from "axios";
 
-export type Message = { id: number; body: string; date: string };
+export interface MessageReactions {
+  url: string;
+  total_count: number;
+  "+1": number;
+  "-1": number;
+  laugh: number;
+  hooray: number;
+  confused: number;
+  heart: number;
+  rocket: number;
+  eyes: number;
+}
+
+export type Message = {
+  id: number;
+  body: string;
+  date: string;
+  reactions: MessageReactions;
+};
 
 export const getGuestbookMessages = async () => {
   const res = await axios.get("/api/guestbook");
@@ -15,3 +33,16 @@ export const postGuestbookMessage = async (message: string) => {
 
   return res.data;
 };
+
+export const reactionEmojis: Record<string, string> = {
+  "+1": "👍",
+  "-1": "👎",
+  laugh: "😄",
+  hooray: "🎉",
+  confused: "😕",
+  heart: "❤️",
+  rocket: "🚀",
+  eyes: "👀",
+};
+
+export const emojiKeys = Object.keys(reactionEmojis);

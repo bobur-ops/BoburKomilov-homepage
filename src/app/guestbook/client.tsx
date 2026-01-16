@@ -3,7 +3,11 @@
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { getGuestbookMessages, postGuestbookMessage } from "./api";
+import {
+  getGuestbookMessages,
+  postGuestbookMessage,
+  reactionEmojis,
+} from "./api";
 import { useState } from "react";
 import { format } from "date-fns";
 
@@ -57,8 +61,21 @@ export default function GuestbookClient() {
         {messages.map((msg) => (
           <li key={msg.id} className="border-b pb-2 text-sm">
             <p>{msg.body}</p>
-            <span className="text-muted-foreground text-xs">
-              {format(new Date(msg.date), "PPpp")}
+            <span className="text-muted-foreground">
+              {Object.entries(msg.reactions).map(([key, count]) => {
+                if (count === 0) return null;
+                if (key === "url" || key === "total_count") return null;
+
+                return (
+                  <span
+                    key={key}
+                    className="bg-muted border p-1 rounded-xl mr-2"
+                  >
+                    {reactionEmojis[key]}
+                  </span>
+                );
+              })}
+              {format(new Date(msg.date), "PPpp")}{" "}
             </span>
           </li>
         ))}

@@ -62,6 +62,7 @@ export async function GET() {
       id: comment.id,
       body: comment.body,
       date: comment.created_at,
+      reactions: comment.reactions,
     }));
 
   return NextResponse.json(messages);
