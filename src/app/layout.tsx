@@ -21,9 +21,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Muxammadbobur Komiljonov Homepage",
+  title: "Muxammadbobur Komiljonov (Muhammadbobur) - Frontend Developer",
   description:
-    "Muxammadbobur Komiljonov is a frontend developer from Tashkent specializing in React, Vue, and scalable web apps",
+    "Muxammadbobur Komiljonov (Muhammadbobur/Muhammad Bobur) is a frontend developer from Tashkent specializing in React, Vue, and scalable web apps",
   authors: [{ name: "Muxammadbobur Komiljonov" }],
   verification: {
     google: "HbRhtiiQwV2-b7_v6LDPUXQuI46oHwrhLFT8WqGDZK4", // 👈 This is the key part
@@ -42,19 +42,23 @@ export const metadata: Metadata = {
     "Tashkent",
     "Uzbekistan",
     "Muxammadbobur Komiljonov",
+    "Muhammadbobur Komiljonov",
     "Muxammadbobur",
+    "Muhammadbobur",
     "Komiljonov",
     "Muxammad Bobur",
+    "Muhammad Bobur",
     "Bobur Komiljonov",
+    "Bobur",
     "Web Apps",
     "Muxammad Bobur Komiljonov Homepage",
   ],
-  metadataBase: new URL("https://bobur.me/"),
+  metadataBase: new URL("https://bobur.me"),
   openGraph: {
-    title: "Muxammadbobur Komiljonov Homepage",
+    title: "Muxammadbobur Komiljonov (Muhammadbobur) - Frontend Developer",
     description:
-      "Muxammadbobur Komiljonov is a frontend developer from Tashkent specializing in React, Vue, and scalable web apps",
-    url: "https://bobur.me/",
+      "Muxammadbobur Komiljonov (Muhammadbobur/Muhammad Bobur) is a frontend developer from Tashkent specializing in React, Vue, and scalable web apps",
+    url: "https://bobur.me",
     siteName: "Muxammadbobur Komiljonov",
     locale: "en_US",
     type: "website",
@@ -63,7 +67,7 @@ export const metadata: Metadata = {
     icon: "/favicon.png",
   },
   alternates: {
-    canonical: "https://bobur.me/",
+    canonical: "https://bobur.me",
   },
 };
 
@@ -158,10 +162,14 @@ export default function RootLayout({
 const SeoNames = () => {
   return (
     <>
+      <span className="sr-only">Muxammadbobur Komiljonov</span>
       <span className="sr-only">Muhammadbobur Komiljonov</span>
       <span className="sr-only">Muhammad Bobur Komiljonov</span>
       <span className="sr-only">Muxammad Bobur Komiljonov</span>
       <span className="sr-only">Bobur Komiljonov</span>
+      <span className="sr-only">Muxammadbobur</span>
+      <span className="sr-only">Muhammadbobur</span>
+      <span className="sr-only">Bobur</span>
     </>
   );
 };
