@@ -1,0 +1,19 @@
+---
+const { href, target = "_self" } = Astro.props;
+const rel = target === "_blank" ? "noreferrer" : undefined;
+const isActive = href === Astro.url.pathname;
+---
+
+<a
+  class:list={[
+    "underline-offset-2 transition-colors",
+    isActive
+      ? "text-accent-foreground underline"
+      : "hover:underline hover:text-accent-foreground",
+  ]}
+  href={href}
+  target={target}
+  rel={rel}
+>
+  <slot />
+</a>

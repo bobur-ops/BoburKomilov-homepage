@@ -1,0 +1,35 @@
+---
+import NavbarLink from "./navbar-link.astro";
+import MobileLinksMenu from "./movile-links.tsx";
+import ThemeSwitcher from "@/features/theme/ThemeSwitcher.tsx";
+import ThemePalette from "@/features/theme/ThemePalette.tsx";
+---
+
+<div
+  class="h-14 left-0 right-0 fixed top-0 flex z-10 items-center justify-center bg-accent/65 backdrop-blur-xl border-b"
+>
+  <div
+    class="w-full max-w-4xl flex justify-between items-center px-2 md:px-4 lg:px-0"
+  >
+    <a href="/">Muxammadbobur K.</a>
+
+    <div class="hidden md:flex items-center gap-6">
+      <NavbarLink href="/blog">Blog</NavbarLink>
+      <NavbarLink href="/uses">Uses</NavbarLink>
+      <NavbarLink href="/git">Git</NavbarLink>
+      <NavbarLink href="/guestbook">Guestbook</NavbarLink>
+      <NavbarLink
+        href="https://github.com/bobur-ops/BoburKomilov-homepage"
+        target="_blank"
+      >
+        Source
+      </NavbarLink>
+    </div>
+
+    <div class="flex items-center gap-2">
+      <ThemeSwitcher client:load />
+      <ThemePalette client:load />
+      <MobileLinksMenu client:load />
+    </div>
+  </div>
+</div>
