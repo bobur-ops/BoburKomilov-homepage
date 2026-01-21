@@ -4,6 +4,8 @@ import { getPostMarkdown, getPublishedPosts } from "@/lib/notion";
 import { getCoverImage } from "@/utils/get-cover-image";
 import readingTime from "reading-time";
 import { marked } from "marked";
+import RemoteBlurImage from "@/components/remote-blur-image.astro";
+import { format } from "date-fns";
 
 export async function getStaticPaths() {
   const posts = await getPublishedPosts();
@@ -37,10 +39,28 @@ const html = await marked.parse(mdxContent.parent);
 ---
 
 <RootLayout>
-  <div>
+  <div class:list={[coverImage ? "pt-50 md:pt-87.5" : ""]}>
+    {
+      coverImage && (
+        <div class="absolute top-14 left-0 right-0 h-50 md:h-87.5">
+          <RemoteBlurImage
+            alt="Cover Image"
+            width={1920}
+            height={350}
+            src={coverImage}
+            class="w-full h-full object-cover"
+          />
+        </div>
+      )
+    }
     <div
-      class="w-full max-w-none prose dark:prose-invert mx-auto text-foreground"
-      set:html={html}
-    />
+      class="w-full max-w-none prose dark:prose-invert mx-auto text-foreground py-8"
+    >
+      <p class="flex justify-start text-sm">
+        {format(new Date(createdAt), "MMMM d, yyyy")}{" "}
+        {readTime && `• ${readTime}`}
+      </p>
+      <div class="" set:html={html} />
+    </div>
   </div>
 </RootLayout>
