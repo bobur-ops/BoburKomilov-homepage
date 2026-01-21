@@ -30,9 +30,14 @@ export const getCurrentTheme = () => {
 export const applyThemeClass = (theme: string) => {
   const root = document.documentElement;
   const previousTheme = root.dataset.theme;
+  const previousMode = root.dataset.themeMode;
+  const { mode } = getThemeParts(theme);
   if (previousTheme) root.classList.remove(previousTheme);
+  if (previousMode) root.classList.remove(previousMode);
   root.classList.add(theme);
+  root.classList.add(mode);
   root.dataset.theme = theme;
+  root.dataset.themeMode = mode;
 };
 
 export const setTheme = (theme: string) => {

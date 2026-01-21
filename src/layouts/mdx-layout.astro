@@ -1,0 +1,15 @@
+---
+const { isProse = true } = Astro.props;
+import RootLayout from "./root-layout.astro";
+---
+
+<RootLayout>
+  <div
+    class:list={[
+      "py-6 w-full max-w-none",
+      isProse ? "prose dark:prose-invert mx-auto text-foreground" : "",
+    ]}
+  >
+    <slot />
+  </div>
+</RootLayout>

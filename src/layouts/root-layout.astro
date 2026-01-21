@@ -1,0 +1,53 @@
+---
+import Navbar from "@/components/navbar.astro";
+import { FALLBACK_DEFAULT_THEME } from "@/features/theme/consts";
+import "../styles/global.css";
+
+const { title = "Bobur" } = Astro.props;
+const fallbackMode = FALLBACK_DEFAULT_THEME.endsWith("-dark")
+  ? "dark"
+  : "light";
+---
+
+<!doctype html>
+<html
+  lang="en"
+  class={`${FALLBACK_DEFAULT_THEME} ${fallbackMode}`}
+  data-theme={FALLBACK_DEFAULT_THEME}
+  data-theme-mode={fallbackMode}
+>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <title>{title}</title>
+    <script is:inline>
+      const storageKey = "theme";
+      const root = document.documentElement;
+      const fallbackTheme = root.dataset.theme || "vintage-paper-light";
+      const storedTheme = window.localStorage.getItem(storageKey);
+      const nextTheme = storedTheme || fallbackTheme;
+      const lastDashIndex = nextTheme.lastIndexOf("-");
+      const nextMode = nextTheme.slice(lastDashIndex + 1) === "dark" ? "dark" : "light";
+      const previousTheme = root.dataset.theme;
+      const previousMode = root.dataset.themeMode;
+      if (previousTheme) root.classList.remove(previousTheme);
+      if (previousMode) root.classList.remove(previousMode);
+      root.classList.add(nextTheme);
+      root.classList.add(nextMode);
+      root.dataset.theme = nextTheme;
+      root.dataset.themeMode = nextMode;
+    </script>
+  </head>
+  <body>
+    <div
+      class="min-h-dvh overflow-y-auto max-w-4xl mx-auto pt-14 px-2 md:px-4 lg:px-0"
+    >
+      <Navbar />
+
+      <slot />
+    </div>
+
+    <div id="portal-root"></div>
+  </body>
+</html>
