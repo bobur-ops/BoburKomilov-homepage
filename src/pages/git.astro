@@ -1,0 +1,114 @@
+---
+import LanguageChart from "@/components/language-chart";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import RootLayout from "@/layouts/root-layout.astro";
+import { getUserStats, getRepos } from "@/lib/git";
+import RepoGraph from "@/components/repo-graph";
+import GitCalendar from "@/components/git-calendar";
+import GitQuickStats from "@/components/git-quick-stats.astro";
+
+const username = "bobur-ops";
+
+let user = null;
+let repos = null;
+let error = null;
+
+try {
+  [user, repos] = await Promise.all([
+    getUserStats(username),
+    getRepos(username),
+  ]);
+} catch (e) {
+  error = e instanceof Error ? e.message : "Failed to fetch GitHub data";
+  console.error("GitHub API Error:", e);
+}
+
+const languagesMap = new Map<string, number>();
+
+repos?.forEach((repo) => {
+  if (repo.language) {
+    languagesMap.set(repo.language, (languagesMap.get(repo.language) || 0) + 1);
+  }
+});
+
+const languageData = Array.from(languagesMap).map(([lang, count]) => ({
+  name: lang,
+  value: count,
+}));
+
+const totalStars = repos?.reduce((a, r) => a + r.stargazers_count, 0) || 0;
+const totalForks = repos?.reduce((a, r) => a + r.forks_count, 0) || 0;
+
+const repoGraphData = (repos || []).map((repo: any) => ({
+  id: repo.name,
+  language: repo.language,
+  stargazers_count: repo.stargazers_count,
+}));
+---
+
+<RootLayout title="Blog">
+  <div class="space-y-4 py-6 text-foreground">
+    {
+      error ? (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-xl text-destructive">
+              Error Loading GitHub Data
+            </CardTitle>
+            <CardContent>
+              <p class="text-muted-foreground">{error}</p>
+            </CardContent>
+          </CardHeader>
+        </Card>
+      ) : !user ? (
+        <Card>
+          <CardHeader>
+            <CardTitle className="text-xl">Loading...</CardTitle>
+            <CardContent>
+              <p class="text-muted-foreground">
+                Fetching GitHub profile data...
+              </p>
+            </CardContent>
+          </CardHeader>
+        </Card>
+      ) : (
+        <>
+          <Card>
+            <CardHeader>
+              <CardTitle className="text-xl">GithFub Profile</CardTitle>
+              <CardContent className="space-y-2">
+                <p>
+                  <strong>Name: </strong>
+                  {user?.name || user?.login || "N/A"}
+                </p>
+                <p>
+                  <strong>Followers: </strong>
+                  {user?.followers ?? "N/A"}
+                </p>
+                <p>
+                  <strong>Public Repos: </strong>
+                  {user?.public_repos ?? "N/A"}
+                </p>
+              </CardContent>
+            </CardHeader>
+          </Card>
+
+          <LanguageChart languageData={languageData} client:load />
+
+          <div class="h-150 sm:h-175 my-4">
+            <RepoGraph repos={repoGraphData} client:only="react" />
+          </div>
+
+          <GitCalendar client:load />
+
+          <GitQuickStats
+            stars={totalStars}
+            forks={totalForks}
+            followers={user.followers}
+            publicRepos={user.public_repos}
+          />
+        </>
+      )
+    }
+  </div>
+</RootLayout>

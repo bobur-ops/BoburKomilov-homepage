@@ -1,0 +1,39 @@
+---
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+
+interface GitQuickStatsProps {
+  stars: number;
+  forks: number;
+  followers: number;
+  publicRepos: number;
+}
+
+const { stars, forks, followers, publicRepos } =
+  Astro.props as GitQuickStatsProps;
+
+const stats = [
+  { label: "Stars", value: stars },
+  { label: "Forks", value: forks },
+  { label: "Followers", value: followers },
+  { label: "Public Repos", value: publicRepos },
+];
+---
+
+<Card className="my-4">
+  <CardHeader>
+    <CardTitle className="text-xl">Quick GitHub Stats</CardTitle>
+  </CardHeader>
+
+  <CardContent>
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      {
+        stats.map((stat) => (
+          <div class="text-center">
+            <p class="text-lg font-semibold">{stat.value}</p>
+            <p class="text-muted-foreground text-sm">{stat.label}</p>
+          </div>
+        ))
+      }
+    </div>
+  </CardContent>
+</Card>

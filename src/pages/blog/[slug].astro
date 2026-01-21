@@ -39,7 +39,7 @@ const html = await marked.parse(mdxContent.parent);
 ---
 
 <RootLayout>
-  <div class:list={[coverImage ? "pt-50 md:pt-87.5" : ""]}>
+  <div class:list={["text-foreground", coverImage ? "pt-50 md:pt-87.5" : ""]}>
     {
       coverImage && (
         <div class="absolute top-14 left-0 right-0 h-50 md:h-87.5">
