@@ -1,0 +1,46 @@
+---
+import RootLayout from "@/layouts/root-layout.astro";
+import { getPostMarkdown, getPublishedPosts } from "@/lib/notion";
+import { getCoverImage } from "@/utils/get-cover-image";
+import readingTime from "reading-time";
+import { marked } from "marked";
+
+export async function getStaticPaths() {
+  const posts = await getPublishedPosts();
+
+  return posts.map((post: any) => {
+    const slug = post.properties.slug?.rich_text[0]?.plain_text || post.id;
+    return {
+      params: {
+        slug,
+      },
+    };
+  });
+}
+
+const { slug } = Astro.params;
+const posts = await getPublishedPosts();
+
+const post: any = posts.find((post: any) => {
+  const postSlug = post.properties.slug?.rich_text[0]?.plain_text || post.id;
+  return postSlug === slug;
+});
+
+const mdxContent = await getPostMarkdown(post.id);
+const coverImage = getCoverImage(post);
+const createdAt = post.created_time;
+
+const readStats = readingTime(mdxContent.parent);
+const readTime = readStats?.text;
+
+const html = await marked.parse(mdxContent.parent);
+---
+
+<RootLayout>
+  <div>
+    <div
+      class="w-full max-w-none prose dark:prose-invert mx-auto text-foreground"
+      set:html={html}
+    />
+  </div>
+</RootLayout>

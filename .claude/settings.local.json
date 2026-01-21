@@ -4,7 +4,9 @@
       "Bash(npm run dev:*)",
       "Bash(curl:*)",
       "Bash(findstr:*)",
-      "Bash(npm run build:*)"
+      "Bash(npm run build:*)",
+      "Bash(git mv:*)",
+      "Bash(npm install:*)"
     ]
   }
 }

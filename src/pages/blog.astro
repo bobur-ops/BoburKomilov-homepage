@@ -1,7 +1,65 @@
 ---
+import RemoteBlurImage from "@/components/remote-blur-image.astro";
 import RootLayout from "@/layouts/root-layout.astro";
+import { getPublishedPosts } from "@/lib/notion";
+import { getCoverImage } from "@/utils/get-cover-image";
+import { format } from "date-fns";
+
+const posts = await getPublishedPosts();
 ---
 
-<RootLayout>
-  <div>Blog Component</div>
+<RootLayout title="Blog">
+  <div class="py-6">
+    <h1 class="text-3xl font-bold mb-6">📝 Blog</h1>
+
+    {
+      posts.length === 0 && (
+        <div class="text-center text-2xl py-20">No posts found</div>
+      )
+    }
+
+    <div class="grid md:grid-cols-2 gap-8">
+      {
+        posts.map((post: any) => {
+          if (!("properties" in post)) return null;
+          const title =
+            post.properties.title?.title[0]?.plain_text || "Untitled";
+          const slug =
+            post.properties.slug?.rich_text[0]?.plain_text || post.id;
+
+          const coverImage = getCoverImage(post);
+          const createdAt = post.created_time;
+
+          return (
+            <a href={`/blog/${slug}`}>
+              <div class="border flex flex-col transition-colors hover:bg-accent h-full">
+                <div class="flex-1 max-h-52">
+                  {coverImage ? (
+                    <RemoteBlurImage
+                      src={coverImage}
+                      alt={title}
+                      width={800}
+                      height={400}
+                      class="w-full h-52 object-cover m-0!"
+                    />
+                  ) : (
+                    <div class="w-full h-full bg-accent" />
+                  )}
+                </div>
+
+                <div class="p-4">
+                  <h2 class="text-xl font-semibold decoration-0">{title}</h2>
+                  {createdAt && (
+                    <p class="text-sm text-muted-foreground mt-1">
+                      {format(new Date(createdAt), "MMMM d, yyyy")}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </a>
+          );
+        })
+      }
+    </div>
+  </div>
 </RootLayout>
