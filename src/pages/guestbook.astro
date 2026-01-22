@@ -1,0 +1,112 @@
+---
+import { reactionEmojis } from "@/api/guestbook";
+import { getGuestbookMessages, type Message } from "@/api/guestbook";
+import { Button } from "@/components/ui/button";
+import { Textarea } from "@/components/ui/textarea";
+import RootLayout from "@/layouts/root-layout.astro";
+import { format } from "date-fns";
+
+let messages: Message[] = [];
+try {
+  const res = await getGuestbookMessages();
+  messages = res;
+} catch (error) {
+  console.error("Failed to fetch guestbook messages:", error);
+}
+---
+
+<RootLayout>
+  <div class="container prose dark:prose-invert">
+    <h1 class="title">📖 Guestbook</h1>
+
+    <Textarea
+      placeholder="Leave a message..."
+      onKeyUp={(e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+          e.preventDefault();
+          e.currentTarget.blur();
+        }
+      }}
+    />
+
+    <div class="button-container">
+      <Button> Send Message </Button>
+    </div>
+
+    <ul class="messages-list">
+      {
+        messages.map((msg) => (
+          <li class="message-item">
+            <p>{msg.body}</p>
+            <span class="message-meta">
+              {Object.entries(msg.reactions).map(([key, count]) => {
+                if (count === 0) return null;
+                if (key === "url" || key === "total_count") return null;
+
+                return (
+                  <span class="reaction-badge">{reactionEmojis[key]}</span>
+                );
+              })}
+              {format(new Date(msg.date), "PPpp")}{" "}
+            </span>
+          </li>
+        ))
+      }
+      {messages.length === 0 && <li>No messages yet. Be the first!</li>}
+    </ul>
+  </div>
+</RootLayout>
+
+<style>
+  .container {
+    height: 100%;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+    width: 100%;
+    max-width: none;
+    /* Prose styles */
+    color: var(--text-primary);
+    line-height: 1.75;
+  }
+
+  .title {
+    font-size: 1.5rem;
+    line-height: 2rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+  }
+
+  .button-container {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+
+  .messages-list {
+    padding-top: 1.5rem;
+    overflow-y: auto;
+    list-style: none;
+    padding-left: 0;
+  }
+
+  .message-item {
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 0.5rem;
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+    margin-bottom: 0.5rem;
+  }
+
+  .message-meta {
+    color: var(--text-muted-foreground);
+  }
+
+  .reaction-badge {
+    background-color: var(--bg-muted);
+    border: 1px solid var(--border);
+    padding: 0.25rem;
+    border-radius: 0.75rem;
+    margin-right: 0.5rem;
+    display: inline-block;
+  }
+</style>
