@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 export default function ThemeMusic() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
+  const [hasEverBeenReady, setHasEverBeenReady] = useState(false);
 
   // Pick random track on mount
   useEffect(() => {
@@ -22,20 +23,30 @@ export default function ThemeMusic() {
     mounted ? currentTrack.src : undefined,
   );
 
+  // Track if we've ever been ready to prevent unmounting
+  useEffect(() => {
+    if (isReady) {
+      setHasEverBeenReady(true);
+    }
+  }, [isReady]);
+
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % MUSICS.length);
   };
 
-  if (!isReady || !mounted) {
+  if (!hasEverBeenReady || !mounted) {
     return null;
   }
 
   return (
     <div className="fixed right-4 bottom-4 z-50">
       <div className="bg-card/80 backdrop-blur-sm max-w-[220px] border border-border rounded-lg overflow-hidden">
-        <div className="px-4 py-3">
-          <div className="text-xs font-mono truncate mb-1">
-            {currentTrack.title}
+        <div className="px-4 py-3 overflow-hidden">
+          <div className="text-xs font-mono mb-1 whitespace-nowrap">
+            <div className="flex w-max animate-marquee delay-1000">
+              <span className="mr-10">{currentTrack.title}</span>
+              <span className="mr-10">{currentTrack.title}</span>
+            </div>
           </div>
         </div>
 

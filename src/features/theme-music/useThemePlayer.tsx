@@ -10,6 +10,11 @@ export const useThemePlayer = (audioSrc?: string) => {
   useEffect(() => {
     if (!audioSrc) return;
 
+    // Reset interaction flag for new audio source
+    hasInteractedRef.current = false;
+    setIsReady(false);
+    setIsPlaying(false);
+
     const audio = new Audio(audioSrc);
     audio.loop = true;
     audio.volume = 0.15;
@@ -25,25 +30,34 @@ export const useThemePlayer = (audioSrc?: string) => {
     };
   }, [audioSrc]);
 
-  // Attempt to play on first user interaction
+  // Attempt to play when ready
   useEffect(() => {
+    if (!audioRef.current || !isReady || hasInteractedRef.current) return;
+
+    hasInteractedRef.current = true;
+
     const handleInteraction = async () => {
-      if (hasInteractedRef.current || !audioRef.current || !isReady) return;
-
-      hasInteractedRef.current = true;
-
+      if (!audioRef.current) return;
       try {
         await audioRef.current.play();
         setIsPlaying(true);
       } catch (error) {
-        console.warn("Failed to autoplay music:", error);
+        console.warn("Failed to play music:", error);
       }
     };
 
-    const events = ["click", "keydown", "touchstart"];
-    events.forEach((event) => {
-      document.addEventListener(event, handleInteraction, { once: true });
-    });
+    const events = ["click", "keydown", "touchstart"] as const;
+
+    // Try to play immediately when ready
+    audioRef.current.play()
+      .then(() => setIsPlaying(true))
+      .catch(() => {
+        // Autoplay blocked by browser, wait for user interaction
+        console.warn("Autoplay blocked, waiting for user interaction");
+        events.forEach((event) => {
+          document.addEventListener(event, handleInteraction, { once: true });
+        });
+      });
 
     return () => {
       events.forEach((event) => {

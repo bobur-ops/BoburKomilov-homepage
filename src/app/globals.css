@@ -64,6 +64,8 @@
   --shadow-lg: var(--shadow-lg);
   --shadow-xl: var(--shadow-xl);
   --shadow-2xl: var(--shadow-2xl);
+
+  --animate-marquee: marquee 15s linear infinite;
 }
 
 @keyframes walk {
@@ -110,6 +112,15 @@
 
   to {
     background-position-x: -320px;
+  }
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
   }
 }
 
