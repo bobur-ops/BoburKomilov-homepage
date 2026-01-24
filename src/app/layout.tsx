@@ -9,6 +9,7 @@ import PixelCat from "@/features/pixel-cat";
 import Script from "next/script";
 import GATracker from "@/components/GaTracker";
 import PersonSchema from "@/components/PersonSchema";
+import ThemeMusic from "@/features/theme-music";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -147,6 +148,7 @@ export default function RootLayout({
               <PixelCat />
               <SeoNames />
               <Navbar />
+              <ThemeMusic />
 
               <>{children}</>
             </div>
