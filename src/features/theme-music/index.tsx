@@ -10,6 +10,9 @@ export default function ThemeMusic() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [mounted, setMounted] = useState(false);
   const [hasEverBeenReady, setHasEverBeenReady] = useState(false);
+  const [barHeights] = useState(() =>
+    Array.from({ length: 20 }, () => 8 + Math.random() * 8)
+  );
 
   // Pick random track on mount
   useEffect(() => {
@@ -39,7 +42,7 @@ export default function ThemeMusic() {
   }
 
   return (
-    <div className="fixed right-4 bottom-4 z-50">
+    <div className="fixed right-4 bottom-4 md:right-4 md:bottom-4 sm:right-2 sm:bottom-20 z-50">
       <div className="bg-card/80 backdrop-blur-sm max-w-[220px] border border-border rounded-lg overflow-hidden">
         <div className="px-4 py-3 overflow-hidden">
           <div className="text-xs font-mono mb-1 whitespace-nowrap">
@@ -55,12 +58,13 @@ export default function ThemeMusic() {
             onClick={toggle}
             size="icon"
             variant={"secondary"}
-            className="h-8 w-8"
+            className="h-8 w-8 sm:h-10 sm:w-10"
+            aria-label={isPlaying ? "Pause music" : "Play music"}
           >
             {isPlaying ? (
-              <Pause className="w-4 h-4" />
+              <Pause className="w-4 h-4 sm:w-5 sm:h-5" />
             ) : (
-              <Play className="w-4 h-4" />
+              <Play className="w-4 h-4 sm:w-5 sm:h-5" />
             )}
           </Button>
 
@@ -68,21 +72,22 @@ export default function ThemeMusic() {
             onClick={handleNext}
             variant={"secondary"}
             size="icon"
-            className="h-8 w-8"
+            className="h-8 w-8 sm:h-10 sm:w-10"
+            aria-label="Next track"
           >
-            <SkipForward className="w-4 h-4" />
+            <SkipForward className="w-4 h-4 sm:w-5 sm:h-5" />
           </Button>
 
           {/* Visualizer bars */}
           <div className="flex items-center gap-0.5 ml-auto">
-            {[...Array(20)].map((_, i) => (
+            {barHeights.map((height, i) => (
               <div
                 key={i}
                 className={`w-0.5 bg-foreground/40 transition-all ${
                   isPlaying ? "animate-pulse" : ""
                 }`}
                 style={{
-                  height: isPlaying ? `${8 + Math.random() * 8}px` : "4px",
+                  height: isPlaying ? `${height}px` : "4px",
                   animationDelay: `${i * 0.1}s`,
                 }}
               />
