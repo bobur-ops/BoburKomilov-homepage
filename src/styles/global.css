@@ -7,7 +7,7 @@
 
 :root {
   /* Geometry */
-  --radius: 0.375rem;
+  --radius: 0rem;
 
   /* Paper */
   --background: #f2ecd9;
@@ -21,7 +21,7 @@
   --popover-foreground: #1c1b18;
 
   /* Primary ink emphasis */
-  --primary: #1c1b18;
+  --primary: #8b2e24;
   --primary-foreground: #f2ecd9;
 
   /* Secondary paper tones */
@@ -78,6 +78,11 @@
   --blog-success-text: #2f5f3a;
 
   --blog-card-bg: #f2ecd9;
+
+  --radius-sm: 0;
+  --radius-md: 0;
+  --radius-lg: 0;
+  --radius-xl: 0;
 }
 
 .dark {
@@ -93,7 +98,7 @@
   --popover-foreground: #e6e0d0;
 
   /* Primary ink emphasis (Inverse of light mode) */
-  --primary: #f2ecd9;
+  --primary: #ff8c82;
   --primary-foreground: #1c1b18;
 
   /* Secondary paper tones (Subtle elevations) */

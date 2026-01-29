@@ -1,0 +1,31 @@
+---
+import { cva } from "class-variance-authority";
+import { cn } from "../lib/utils";
+
+const buttonVariants = cva(
+  "inline-flex items-center justify-center font-medium transition cursor-pointer",
+  {
+    variants: {
+      variant: {
+        default:
+          "bg-primary text-primary-foreground hover:bg-primary/90 active:scale-95",
+        outline: "border",
+      },
+      size: {
+        sm: "h-8 px-3",
+        md: "h-9 px-4",
+      },
+    },
+    defaultVariants: {
+      variant: "default",
+      size: "md",
+    },
+  },
+);
+
+const { variant, size, class: className } = Astro.props;
+---
+
+<button class={cn(buttonVariants({ variant, size }), className)}>
+  <slot />
+</button>
