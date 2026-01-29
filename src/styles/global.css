@@ -1,6 +1,9 @@
 @import "./fonts.css";
 @import "tailwindcss";
+@import "tw-animate-css";
 @plugin "@tailwindcss/typography";
+
+@custom-variant dark (&:is(.dark *));
 
 :root {
   /* Geometry */
@@ -75,6 +78,80 @@
   --blog-success-text: #2f5f3a;
 
   --blog-card-bg: #f2ecd9;
+}
+
+.dark {
+  /* Paper (Deep Charcoal/Warm Slate) */
+  --background: #1c1b18; /* The original ink color becomes the new paper */
+  --card: #242320; /* Slightly lighter than background for depth */
+  --popover: #242320;
+  --input: #262522;
+
+  /* Ink (Creamy Off-White) */
+  --foreground: #e6e0d0;
+  --card-foreground: #e6e0d0;
+  --popover-foreground: #e6e0d0;
+
+  /* Primary ink emphasis (Inverse of light mode) */
+  --primary: #f2ecd9;
+  --primary-foreground: #1c1b18;
+
+  /* Secondary paper tones (Subtle elevations) */
+  --secondary: #2b2a26;
+  --secondary-foreground: #e6e0d0;
+
+  /* Muted states (Lower contrast for background text) */
+  --muted: #33312c;
+  --muted-foreground: #9a9485;
+
+  /* Accents */
+  --accent: #3d3b36;
+  --accent-foreground: #f2ecd9;
+
+  /* States (Maintain legibility on dark backgrounds) */
+  --destructive: #ff6b5c;
+  --success: #6eb07d;
+  --fail: #ff6b5c;
+
+  /* Borders and focus */
+  --border: #3d3b36;
+  --ring: #5a564c;
+
+  /* Charts (Higher luminance for dark mode) */
+  --chart-1: oklch(70% 0.12 40);
+  --chart-2: oklch(65% 0.08 185);
+  --chart-3: oklch(50% 0.05 230);
+  --chart-4: oklch(80% 0.1 85);
+  --chart-5: oklch(75% 0.1 70);
+
+  /* Sidebar (Slightly deeper than background) */
+  --sidebar: #161513;
+  --sidebar-foreground: #e6e0d0;
+  --sidebar-primary: #f2ecd9;
+  --sidebar-primary-foreground: #1c1b18;
+  --sidebar-accent: #2b2a26;
+  --sidebar-accent-foreground: #e6e0d0;
+  --sidebar-border: #2b2a26;
+  --sidebar-ring: #5a564c;
+
+  /* Blog-specific tokens */
+  --blog-text-primary: #e6e0d0;
+  --blog-text-secondary: #c5bfb0;
+  --blog-text-muted: #9a9485;
+
+  --blog-bg-subtle: #242320;
+  --blog-bg-hover: #2d2c28;
+
+  --blog-border-color: #3d3b36;
+  --blog-border-accent: #f2ecd9;
+
+  --blog-link-color: #8bb3e8; /* Lighter blue for readability on dark */
+  --blog-link-hover: #aecfff;
+
+  --blog-success-bg: #1e2e20;
+  --blog-success-text: #6eb07d;
+
+  --blog-card-bg: #242320;
 }
 
 @theme {
@@ -158,5 +235,17 @@
     background-color: var(--background);
     color: var(--foreground);
     font-family: "JetBrains Mono", monospace;
+  }
+}
+
+@layer base {
+  *,
+  ::before,
+  ::after {
+    border-color: var(--border);
+  }
+
+  .mdx-content {
+    @apply prose lg:prose-xl max-w-none text-foreground dark:prose-invert;
   }
 }

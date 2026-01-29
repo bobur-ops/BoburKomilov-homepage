@@ -1,0 +1,25 @@
+---
+import NavbarLink from "./navbar-link.astro";
+---
+
+<div
+  class="fixed left-0 right-0 top-0 bg-accent/65 backdrop-blur-sm h-14 border-b"
+>
+  <div class="max-w-4xl mx-auto flex items-center h-full">
+    <a class="text-lg hover:underline underline-offset-4" href="/"
+      >Muxammadbobur K.</a
+    >
+    <nav class="flex-1 flex justify-end gap-6">
+      <NavbarLink href="/blog"> Blog </NavbarLink>
+      <NavbarLink href="/uses"> Uses </NavbarLink>
+      <NavbarLink href="/git"> Git </NavbarLink>
+      <NavbarLink href="/guestbook"> Guestbook </NavbarLink>
+      <NavbarLink
+        href="https://github.com/bobur-ops/BoburKomilov-homepage"
+        target="_blank"
+      >
+        Source
+      </NavbarLink>
+    </nav>
+  </div>
+</div>

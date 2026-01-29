@@ -1,0 +1,16 @@
+---
+interface Props {
+  href: string;
+  target?: "_blank" | "_self" | "_parent" | "_top";
+}
+
+const { href, target = "_self" } = Astro.props;
+---
+
+<a
+  href={href}
+  target={target}
+  class:list={["hover:underline text-lg underline-offset-4"]}
+>
+  <slot />
+</a>
