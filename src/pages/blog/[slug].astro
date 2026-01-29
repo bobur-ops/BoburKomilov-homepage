@@ -1,0 +1,53 @@
+---
+import { getCollection, render } from "astro:content";
+import RootLayout from "../../layouts/root-layout.astro";
+import { Image } from "astro:assets";
+import { format } from "date-fns";
+import readingTime from "reading-time";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("database");
+
+  return posts.map((post) => ({
+    params: { slug: post.data.properties.slug.rich_text[0].plain_text },
+    props: { post: post },
+  }));
+}
+
+const { post } = Astro.props;
+
+const { Content } = await render(post);
+const coverImage = (post.data.cover as any)?.external?.url;
+const digest = (post as any).digest;
+const createdAt = digest ? format(new Date(digest), "MMMM d, yyyy") : undefined;
+const readStats = readingTime(post.rendered?.html || "");
+const readTime = readStats?.text;
+---
+
+<RootLayout>
+  <article class="">
+    {
+      coverImage && (
+        <div class="relative left-[50%] right-[50%] ml-[-50vw] mr-[-50vw] w-screen h-50 md:h-87.5 bg-muted">
+          <Image
+            src={coverImage}
+            alt={"Cover Image"}
+            width={1920}
+            height={350}
+            class="w-full h-full object-cover transition-opacity duration-500 opacity-0"
+            onload="this.classList.remove('opacity-0')"
+            loading="lazy"
+            decoding="async"
+          />
+        </div>
+      )
+    }
+    <div class="mdx-content py-6">
+      <p class="flex justify-start text-sm">
+        {createdAt}
+        {readTime && `• ${readTime}`}
+      </p>
+      <Content />
+    </div>
+  </article>
+</RootLayout>

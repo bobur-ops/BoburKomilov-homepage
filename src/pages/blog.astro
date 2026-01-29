@@ -1,9 +1,67 @@
 ---
+import { getCollection } from "astro:content";
 import RootLayout from "../layouts/root-layout.astro";
+import { Image } from "astro:assets";
+import { format } from "date-fns";
+
+const posts = await getCollection("database");
 ---
 
 <RootLayout>
-  <div class="mdx-content py-6">
+  <div class="py-6">
     <h1 class="text-3xl font-bold mb-6">📝 Blog</h1>
+
+    {
+      posts.length === 0 && (
+        <div class="text-center text-2xl py-20">No posts found</div>
+      )
+    }
+    <div class="grid md:grid-cols-2 gap-8">
+      {
+        posts.map((post) => {
+          const slug = post.data.properties.slug.rich_text[0].plain_text;
+          const title = post.data.properties.title.title[0].plain_text;
+          const coverImage = (post.data.cover as any)?.external?.url;
+          const digest = (post as any).digest;
+          const createdAt = digest
+            ? format(new Date(digest), "MMMM d, yyyy")
+            : undefined;
+
+          return (
+            <a href={`/blog/${slug}`} class="decoration-0">
+              <div class="border flex flex-col transition-colors hover:bg-accent h-full">
+                <div class="flex-1 max-h-52 overflow-hidden bg-muted">
+                  {coverImage ? (
+                    <Image
+                      src={coverImage}
+                      alt={title}
+                      width={800}
+                      height={400}
+                      loading="lazy"
+                      decoding="async"
+                      class="w-full h-52 object-cover transition-opacity duration-500 opacity-0 m-0!"
+                      onload="this.classList.remove('opacity-0')"
+                    />
+                  ) : (
+                    <div class="w-full h-full bg-accent" />
+                  )}
+                </div>
+
+                <div class="p-4">
+                  <h2 class="text-xl font-semibold decoration-0 m-0">
+                    {title}
+                  </h2>
+                  {createdAt && (
+                    <p class="text-sm text-muted-foreground mt-1">
+                      {createdAt}
+                    </p>
+                  )}
+                </div>
+              </div>
+            </a>
+          );
+        })
+      }
+    </div>
   </div>
 </RootLayout>
