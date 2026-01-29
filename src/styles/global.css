@@ -1,1 +1,136 @@
+@import "./fonts.css";
 @import "tailwindcss";
+
+:root {
+  --radius: 0.625rem;
+  --background: #fbf7eb;
+  --foreground: #141414;
+  --card: oklch(100% 0 0);
+  --card-foreground: oklch(12.9% 0.042 264.695);
+  --popover: oklch(100% 0 0);
+  --popover-foreground: oklch(12.9% 0.042 264.695);
+  --primary: oklch(20.8% 0.042 265.755);
+  --primary-foreground: oklch(98.4% 0.003 247.858);
+  --secondary: oklch(96.8% 0.007 247.896);
+  --secondary-foreground: oklch(20.8% 0.042 265.755);
+  --muted: oklch(96.8% 0.007 247.896);
+  --muted-foreground: oklch(55.4% 0.046 257.417);
+  --accent: oklch(96.8% 0.007 247.896);
+  --accent-foreground: oklch(20.8% 0.042 265.755);
+  --destructive: oklch(57.7% 0.245 27.325);
+  --border: #9e9e9e;
+  --input: #fbf7eb;
+  --ring: oklch(70.4% 0.04 256.788);
+  --success: #2f7d31;
+  --fail: #c6392c;
+  --chart-1: oklch(64.6% 0.222 41.116);
+  --chart-2: oklch(60% 0.118 184.704);
+  --chart-3: oklch(39.8% 0.07 227.392);
+  --chart-4: oklch(82.8% 0.189 84.429);
+  --chart-5: oklch(76.9% 0.188 70.08);
+  --sidebar: oklch(98.4% 0.003 247.858);
+  --sidebar-foreground: oklch(12.9% 0.042 264.695);
+  --sidebar-primary: oklch(20.8% 0.042 265.755);
+  --sidebar-primary-foreground: oklch(98.4% 0.003 247.858);
+  --sidebar-accent: oklch(96.8% 0.007 247.896);
+  --sidebar-accent-foreground: oklch(20.8% 0.042 265.755);
+  --sidebar-border: oklch(92.9% 0.013 255.508);
+  --sidebar-ring: oklch(70.4% 0.04 256.788);
+
+  --blog-text-primary: var(--foreground);
+  --blog-text-muted: #525252;
+  --blog-text-secondary: #404040;
+  --blog-bg-subtle: var(--background);
+  --blog-bg-hover: #ebe7dc;
+  --blog-border-color: #bebebe;
+  --blog-border-accent: var(--foreground);
+  --blog-link-color: #2563eb;
+  --blog-link-hover: #1d4ed8;
+  --blog-success-bg: #d1fae5;
+  --blog-success-text: var(--success);
+  --blog-card-bg: var(--background);
+}
+
+@theme {
+  /* Colors */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --color-success: var(--success);
+  --color-fail: var(--fail);
+
+  /* Charts */
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+
+  /* Sidebar */
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+
+  /* Border Radius */
+  --radius-radius: var(--radius);
+
+  /* Blog Text Colors */
+  --color-blog-text-primary: var(--blog-text-primary);
+  --color-blog-text-muted: var(--blog-text-muted);
+  --color-blog-text-secondary: var(--blog-text-secondary);
+
+  /* Blog Backgrounds */
+  --color-blog-bg-subtle: var(--blog-bg-subtle);
+  --color-blog-bg-hover: var(--blog-bg-hover);
+  --color-blog-card-bg: var(--blog-card-bg);
+
+  /* Blog Borders */
+  --color-blog-border-color: var(--blog-border-color);
+  --color-blog-border-accent: var(--blog-border-accent);
+
+  /* Blog Links */
+  --color-blog-link: var(--blog-link-color);
+  --color-blog-link-hover: var(--blog-link-hover);
+
+  /* Blog Status */
+  --color-blog-success-bg: var(--blog-success-bg);
+  --color-blog-success-text: var(--blog-success-text);
+}
+
+@layer theme {
+  body {
+    background-color: var(--background);
+    color: var(--foreground);
+    font-family: "IBM Plex Mono", sans;
+  }
+}
