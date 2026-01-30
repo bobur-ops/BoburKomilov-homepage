@@ -1,24 +1,32 @@
 ---
 import RootLayout from "../layouts/root-layout.astro";
-import Textarea from "../components/textarea.astro";
 import Button from "../components/button.astro";
+import Textarea from "../components/textarea.astro";
 import { format } from "date-fns";
-import { getGuestbookMessages, reactionEmojis } from "../api/guestbook.api";
+import { fetchMessages, reactionEmojis } from "../api/guestbook";
 
-const messages = await getGuestbookMessages();
+const messages = await fetchMessages();
 ---
 
 <RootLayout>
   <div class="py-6 mdx-content">
     <h1 class="text-3xl font-bold mb-6">📖 Guestbook</h1>
 
-    <Textarea placeholder="Leave a message..." />
+    <form id="guestbook-form" class="space-y-4">
+      <Textarea
+        id="guestbook-input"
+        name="message"
+        placeholder="Leave a message..."
+      />
 
-    <div class="flex justify-end mt-4">
-      <Button> Send Message </Button>
-    </div>
+      <div class="flex justify-end">
+        <Button id="guestbook-submit" type="submit"> Send Message </Button>
+      </div>
+    </form>
 
-    <ul class="pt-6 max-h-150 overflow-y-auto">
+    <p id="guestbook-error" class="text-sm text-red-600 mt-2 hidden"></p>
+
+    <ul id="guestbook-list" class="pt-6 max-h-150 overflow-y-auto">
       {
         messages.length === 0 && (
           <h1 class="text-center text-xl">
@@ -31,18 +39,20 @@ const messages = await getGuestbookMessages();
         messages.map((msg) => (
           <li class="border-b pb-2 text-sm">
             <p>{msg.body}</p>
-            <span class="text-muted-foreground">
-              {Object.entries(msg.reactions).map(([key, count]) => {
-                if (count === 0) return null;
-                if (key === "url" || key === "total_count") return null;
+
+            <span class="text-muted-foreground flex gap-2 items-center">
+              {Object.entries(msg.reactions || {}).map(([key, count]) => {
+                if (!count) return null;
+                if (!reactionEmojis[key]) return null;
 
                 return (
-                  <span class="bg-muted border p-1 rounded-xl mr-2">
+                  <span class="bg-muted border px-2 py-0.5 rounded-xl text-xs">
                     {reactionEmojis[key]}
                   </span>
                 );
               })}
-              {format(new Date(msg.date), "PPpp")}{" "}
+
+              <span class="">{msg.formattedDate}</span>
             </span>
           </li>
         ))
@@ -50,3 +60,89 @@ const messages = await getGuestbookMessages();
     </ul>
   </div>
 </RootLayout>
+
+<script is:inline define:vars={{ reactionEmojis }}>
+  const form = document.getElementById("guestbook-form");
+  const input = document.getElementById("guestbook-input");
+  const submit = document.getElementById("guestbook-submit");
+  const list = document.getElementById("guestbook-list");
+  const errorEl = document.getElementById("guestbook-error");
+
+  const escapeHtml = (value) =>
+    String(value)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&#39;");
+
+  function renderMessages(items) {
+    if (!items || items.length === 0) {
+      list.innerHTML =
+        '<h1 class="text-center text-xl">No messages yet. Be the first to leave a message!</h1>';
+      return;
+    }
+
+    list.innerHTML = items
+      .map((msg) => {
+        const reactions = Object.entries(msg.reactions || {})
+          .filter(([key, count]) => count && reactionEmojis[key])
+          .map(
+            ([key, count]) =>
+              `<span class="bg-muted border px-2 py-0.5 rounded-xl text-xs">
+                ${reactionEmojis[key]} ${count}
+              </span>`,
+          )
+          .join("");
+
+        return `
+          <li class="border-b pb-2 text-sm">
+            <p>${escapeHtml(msg.body)}</p>
+            <span class="text-muted-foreground flex gap-2 items-center">
+              ${reactions}
+              <span class="">
+                ${msg.formattedDate}
+              </span>
+            </span>
+          </li>
+        `;
+      })
+      .join("");
+  }
+
+  async function refetchMessages() {
+    const res = await fetch("/api/guestbook");
+    if (!res.ok) throw new Error("Failed to refresh messages");
+    return res.json();
+  }
+
+  form.addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const message = input.value.trim();
+    if (!message) return;
+
+    submit.disabled = true;
+    errorEl.classList.add("hidden");
+
+    try {
+      const postRes = await fetch("/api/guestbook", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ message }),
+      });
+
+      if (!postRes.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      const updated = await refetchMessages();
+      renderMessages(updated);
+      input.value = "";
+    } catch (err) {
+      errorEl.textContent = err.message || "Something broke";
+      errorEl.classList.remove("hidden");
+    } finally {
+      submit.disabled = false;
+    }
+  });
+</script>
