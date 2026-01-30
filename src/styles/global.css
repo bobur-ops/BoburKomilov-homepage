@@ -263,4 +263,8 @@
   ::-webkit-scrollbar {
     display: none;
   }
+
+  .mdx-content hr {
+    border-color: var(--border);
+  }
 }

@@ -1,0 +1,52 @@
+---
+import RootLayout from "../layouts/root-layout.astro";
+import Textarea from "../components/textarea.astro";
+import Button from "../components/button.astro";
+import { format } from "date-fns";
+import { getGuestbookMessages, reactionEmojis } from "../api/guestbook.api";
+
+const messages = await getGuestbookMessages();
+---
+
+<RootLayout>
+  <div class="py-6 mdx-content">
+    <h1 class="text-3xl font-bold mb-6">📖 Guestbook</h1>
+
+    <Textarea placeholder="Leave a message..." />
+
+    <div class="flex justify-end mt-4">
+      <Button> Send Message </Button>
+    </div>
+
+    <ul class="pt-6 max-h-150 overflow-y-auto">
+      {
+        messages.length === 0 && (
+          <h1 class="text-center text-xl">
+            No messages yet. Be the first to leave a message!
+          </h1>
+        )
+      }
+
+      {
+        messages.map((msg) => (
+          <li class="border-b pb-2 text-sm">
+            <p>{msg.body}</p>
+            <span class="text-muted-foreground">
+              {Object.entries(msg.reactions).map(([key, count]) => {
+                if (count === 0) return null;
+                if (key === "url" || key === "total_count") return null;
+
+                return (
+                  <span class="bg-muted border p-1 rounded-xl mr-2">
+                    {reactionEmojis[key]}
+                  </span>
+                );
+              })}
+              {format(new Date(msg.date), "PPpp")}{" "}
+            </span>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</RootLayout>
