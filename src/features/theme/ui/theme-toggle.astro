@@ -1,21 +1,29 @@
 ---
 import { Icon } from "astro-icon/components";
+import Button from "../../../components/button.astro";
 
 const label = "Toggle theme";
 ---
 
-<button
-  class="theme-toggle"
+<Button
   type="button"
+  size={"icon"}
   aria-label={label}
   data-theme-toggle
   data-theme="light"
+  class="group border border-border bg-background text-foreground hover:bg-accent data-[theme=dark]:bg-background data-[theme=dark]:text-foreground"
 >
-  <Icon class="theme-toggle__icon theme-toggle__icon--sun" name="ph:sun" />
-  <Icon class="theme-toggle__icon theme-toggle__icon--moon" name="ph:moon" />
-  <span class="theme-toggle__label" data-theme-label>Theme</span>
-  <span class="theme-toggle__state" data-theme-state>Light</span>
-</button>
+  <Icon
+    class="h-4 w-4 group-data-[theme=dark]:hidden"
+    name="ph:sun"
+  />
+  <Icon
+    class="hidden h-4 w-4 group-data-[theme=dark]:inline-flex"
+    name="ph:moon"
+  />
+  <span class="sr-only" data-theme-label>Theme</span>
+  <span class="sr-only" data-theme-state>Light</span>
+</Button>
 
 <script is:inline>
   (() => {
@@ -53,51 +61,3 @@ const label = "Toggle theme";
   })();
 </script>
 
-<style>
-  .theme-toggle {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.4rem;
-    border: 1px solid var(--border);
-    background: var(--background);
-    color: var(--foreground);
-    padding: 0.4rem 0.7rem;
-    font-size: 0.75rem;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-    cursor: pointer;
-    transition:
-      background 0.25s ease,
-      color 0.25s ease,
-      border-color 0.25s ease;
-  }
-
-  .theme-toggle__icon {
-    width: 0.95rem;
-    height: 0.95rem;
-  }
-
-  .theme-toggle__icon--moon {
-    display: none;
-  }
-
-  .theme-toggle[data-theme="dark"] .theme-toggle__icon--moon {
-    display: inline-flex;
-  }
-
-  .theme-toggle[data-theme="dark"] .theme-toggle__icon--sun {
-    display: none;
-  }
-
-  .theme-toggle__label {
-    opacity: 0.7;
-  }
-
-  .theme-toggle__state {
-    font-weight: 600;
-  }
-
-  .theme-toggle:hover {
-    background: var(--accent);
-  }
-</style>
