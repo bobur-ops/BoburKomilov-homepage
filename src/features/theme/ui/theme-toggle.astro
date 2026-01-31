@@ -1,5 +1,103 @@
 ---
+import { Icon } from "astro-icon/components";
 
+const label = "Toggle theme";
 ---
 
-<div>Theme Toggle</div>
+<button
+  class="theme-toggle"
+  type="button"
+  aria-label={label}
+  data-theme-toggle
+  data-theme="light"
+>
+  <Icon class="theme-toggle__icon theme-toggle__icon--sun" name="ph:sun" />
+  <Icon class="theme-toggle__icon theme-toggle__icon--moon" name="ph:moon" />
+  <span class="theme-toggle__label" data-theme-label>Theme</span>
+  <span class="theme-toggle__state" data-theme-state>Light</span>
+</button>
+
+<script is:inline>
+  (() => {
+    const storageKey = "theme-preference";
+    const root = document.documentElement;
+    const button = document.querySelector("[data-theme-toggle]");
+    const stateLabel = document.querySelector("[data-theme-state]");
+
+    if (!button || !stateLabel) return;
+
+    const readPreference = () => {
+      const stored = localStorage.getItem(storageKey);
+      return stored === "dark" ? "dark" : "light";
+    };
+
+    const applyTheme = (theme) => {
+      root.classList.toggle("dark", theme === "dark");
+      button.dataset.theme = theme;
+      stateLabel.textContent = theme === "dark" ? "Dark" : "Light";
+      button.setAttribute("aria-pressed", theme === "dark");
+    };
+
+    const setPreference = (theme) => {
+      localStorage.setItem(storageKey, theme);
+      applyTheme(theme);
+    };
+
+    let theme = readPreference();
+    applyTheme(theme);
+
+    button.addEventListener("click", () => {
+      theme = theme === "dark" ? "light" : "dark";
+      setPreference(theme);
+    });
+  })();
+</script>
+
+<style>
+  .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border: 1px solid var(--border);
+    background: var(--background);
+    color: var(--foreground);
+    padding: 0.4rem 0.7rem;
+    font-size: 0.75rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition:
+      background 0.25s ease,
+      color 0.25s ease,
+      border-color 0.25s ease;
+  }
+
+  .theme-toggle__icon {
+    width: 0.95rem;
+    height: 0.95rem;
+  }
+
+  .theme-toggle__icon--moon {
+    display: none;
+  }
+
+  .theme-toggle[data-theme="dark"] .theme-toggle__icon--moon {
+    display: inline-flex;
+  }
+
+  .theme-toggle[data-theme="dark"] .theme-toggle__icon--sun {
+    display: none;
+  }
+
+  .theme-toggle__label {
+    opacity: 0.7;
+  }
+
+  .theme-toggle__state {
+    font-weight: 600;
+  }
+
+  .theme-toggle:hover {
+    background: var(--accent);
+  }
+</style>
