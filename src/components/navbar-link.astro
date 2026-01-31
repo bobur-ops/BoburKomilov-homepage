@@ -5,12 +5,22 @@ interface Props {
 }
 
 const { href, target = "_self" } = Astro.props;
+
+const { pathname } = Astro.url;
+
+const isActive =
+  pathname.startsWith(href) || href === pathname.replace(/\/$/, "");
 ---
 
 <a
   href={href}
   target={target}
-  class:list={["hover:underline text-lg underline-offset-4"]}
+  class:list={[
+    "hover:underline text-lg underline-offset-4",
+    {
+      "font-bold underline": isActive,
+    },
+  ]}
 >
   <slot />
 </a>

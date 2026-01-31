@@ -260,11 +260,37 @@
     filter: blur(20px);
   }
 
+  .mdx-content hr {
+    border-color: var(--border);
+  }
+
   ::-webkit-scrollbar {
     display: none;
   }
 
-  .mdx-content hr {
-    border-color: var(--border);
+  .scrollbar-visible {
+    /* Re-enable the scrollbar display */
+    &::-webkit-scrollbar {
+      display: block;
+      width: 3px;
+      height: 3px;
+    }
+
+    &::-webkit-scrollbar-track {
+      /* Use your theme's muted background */
+      background: var(--muted);
+    }
+
+    &::-webkit-scrollbar-thumb {
+      /* Use your theme's border or muted-foreground color */
+      background-color: var(--border);
+      border-radius: 10px;
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      /* Use your primary ink color on hover */
+      background-color: var(--primary);
+      cursor: pointer;
+    }
   }
 }
