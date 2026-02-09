@@ -11,6 +11,8 @@ import tailwindcss from "@tailwindcss/vite";
 
 import icon from "astro-icon";
 
+import vercel from "@astrojs/vercel";
+
 // https://astro.build/config
 export default defineConfig({
   integrations: [react(), mdx(), sitemap(), icon()],
@@ -18,6 +20,7 @@ export default defineConfig({
   vite: {
     plugins: [tailwindcss()],
   },
+
   image: {
     remotePatterns: [
       {
@@ -38,4 +41,6 @@ export default defineConfig({
       },
     ],
   },
+
+  adapter: vercel(),
 });
