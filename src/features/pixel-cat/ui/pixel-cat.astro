@@ -1,0 +1,161 @@
+<div class="pixel-cat" data-pixel-cat data-scene="idle" data-direction="left">
+  <div
+    class="pixel-cat__bubble"
+    data-pixel-cat-bubble
+    role="status"
+    aria-live="polite"
+    hidden
+  >
+    <span data-pixel-cat-message></span>
+  </div>
+
+  <button
+    type="button"
+    class="pixel-cat__sprite"
+    data-pixel-cat-sprite
+    aria-label="Pixel cat"
+  ></button>
+</div>
+
+<script>
+  import { PixelCatController } from "../pixel-cat-controller";
+
+  const cats = document.querySelectorAll("[data-pixel-cat]");
+
+  cats.forEach((element) => {
+    if (!(element instanceof HTMLElement)) return;
+
+    const controller = new PixelCatController(element);
+    void controller.init();
+
+    const teardown = () => controller.destroy();
+
+    window.addEventListener("pagehide", teardown, { once: true });
+    document.addEventListener("astro:before-swap", teardown, { once: true });
+  });
+</script>
+
+<style>
+  .pixel-cat {
+    --cat-x: 0px;
+    --cat-y: 100px;
+    position: fixed;
+    left: 2rem;
+    top: 4rem;
+    z-index: 50;
+    transform: translate(var(--cat-x), var(--cat-y));
+    pointer-events: none;
+  }
+
+  .pixel-cat__bubble {
+    position: absolute;
+    bottom: calc(100% + 0.5rem);
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgb(17 24 39);
+    color: rgb(248 250 252);
+    font-size: 0.75rem;
+    line-height: 1;
+    padding: 0.4rem 0.55rem;
+    border-radius: 0.4rem;
+    white-space: nowrap;
+    box-shadow: 0 10px 18px rgb(0 0 0 / 22%);
+    pointer-events: none;
+  }
+
+  .pixel-cat__sprite {
+    all: unset;
+    display: block;
+    height: 64px;
+    overflow: hidden;
+    cursor: pointer;
+    pointer-events: auto;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+    image-rendering: pixelated;
+    transform-origin: top left;
+    transform: scaleX(1) scale(1.5);
+  }
+
+  .pixel-cat[data-direction="right"] .pixel-cat__sprite {
+    transform: scaleX(-1) scale(1.5);
+  }
+
+  .pixel-cat[data-scene="walk"] .pixel-cat__sprite {
+    animation: cat-walk 1.5s steps(12) infinite;
+  }
+
+  .pixel-cat[data-scene="idle"] .pixel-cat__sprite {
+    animation: cat-idle 1.2s steps(8) infinite;
+  }
+
+  .pixel-cat[data-scene="attack"] .pixel-cat__sprite {
+    animation: cat-attack 1s steps(8) infinite;
+  }
+
+  .pixel-cat[data-scene="run"] .pixel-cat__sprite {
+    animation: cat-run 1s steps(8) infinite;
+  }
+
+  .pixel-cat[data-scene="hurt"] .pixel-cat__sprite {
+    animation: cat-hurt 1s steps(4) infinite;
+  }
+
+  @keyframes cat-walk {
+    from {
+      background-position-x: 0;
+    }
+
+    to {
+      background-position-x: -960px;
+    }
+  }
+
+  @keyframes cat-idle {
+    from {
+      background-position-x: 0;
+    }
+
+    to {
+      background-position-x: -640px;
+    }
+  }
+
+  @keyframes cat-attack {
+    from {
+      background-position-x: 0;
+    }
+
+    to {
+      background-position-x: -640px;
+    }
+  }
+
+  @keyframes cat-run {
+    from {
+      background-position-x: 0;
+    }
+
+    to {
+      background-position-x: -640px;
+    }
+  }
+
+  @keyframes cat-hurt {
+    from {
+      background-position-x: 0;
+    }
+
+    to {
+      background-position-x: -320px;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .pixel-cat,
+    .pixel-cat__sprite {
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+</style>
