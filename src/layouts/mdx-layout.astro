@@ -1,8 +1,26 @@
 ---
 import RootLayout from "./root-layout.astro";
+import { getPersonSchema, getWebsiteSchema } from "../lib/seo";
+
+interface Props {
+  title?: string;
+  description?: string;
+  noindex?: boolean;
+  ogImage?: string;
+}
+
+const { title, description, noindex, ogImage } = Astro.props;
+const isHomePage = Astro.url.pathname === "/";
+const structuredData = isHomePage ? [getPersonSchema(), getWebsiteSchema()] : undefined;
 ---
 
-<RootLayout>
+<RootLayout
+  title={title}
+  description={description}
+  noindex={noindex}
+  ogImage={ogImage}
+  structuredData={structuredData}
+>
   <div class="py-6 mdx-content">
     <slot />
   </div>

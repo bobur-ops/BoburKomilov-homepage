@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://bobur.me/sitemap-index.xml

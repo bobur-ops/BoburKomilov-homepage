@@ -3,11 +3,28 @@ import { getCollection } from "astro:content";
 import RootLayout from "../layouts/root-layout.astro";
 import { Image } from "astro:assets";
 import { format } from "date-fns";
+import { PRIMARY_NAME, SITE_URL } from "../lib/seo";
 
 const posts = await getCollection("database");
+const pageTitle = "Blog";
+const pageDescription =
+  "Technical posts by Muxammadbobur Komiljonov about React, TypeScript, frontend architecture, and engineering workflow.";
+
+const blogSchema = {
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  name: `${PRIMARY_NAME} Blog`,
+  url: `${SITE_URL}/blog`,
+  description: pageDescription,
+};
 ---
 
-<RootLayout>
+<RootLayout
+  title={pageTitle}
+  description={pageDescription}
+  canonicalPath="/blog"
+  structuredData={blogSchema}
+>
   <div class="py-6">
     <h1 class="text-3xl font-bold mb-6">📝 Blog</h1>
 

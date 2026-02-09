@@ -8,7 +8,11 @@ import { fetchMessages, reactionEmojis } from "../api/guestbook";
 const messages = await fetchMessages();
 ---
 
-<RootLayout>
+<RootLayout
+  title="Guestbook"
+  description="Leave a note for Muxammadbobur Komiljonov in the public guestbook."
+  noindex={true}
+>
   <div class="py-6 mdx-content">
     <h1 class="text-3xl font-bold mb-6">📖 Guestbook</h1>
 
