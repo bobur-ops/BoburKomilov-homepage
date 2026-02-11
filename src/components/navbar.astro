@@ -4,13 +4,14 @@ import NavbarLink from "./navbar-link.astro";
 ---
 
 <div
-  class="fixed left-0 right-0 top-0 bg-accent/65 backdrop-blur-sm h-14 border-b z-10"
+  class="fixed left-0 right-0 top-0 bg-accent/65 backdrop-blur-sm border-b z-10"
 >
-  <div class="max-w-4xl mx-auto flex items-center h-full">
+  <div class="max-w-4xl mx-auto flex items-center h-14 px-4 md:px-0">
     <a class="text-lg hover:underline underline-offset-4" href="/">
       Muxammadbobur K.
     </a>
-    <nav class="flex-1 flex justify-center gap-6">
+
+    <nav class="hidden md:flex flex-1 justify-center gap-6">
       <NavbarLink href="/blog"> Blog </NavbarLink>
       <NavbarLink href="/uses"> Uses </NavbarLink>
       <NavbarLink href="/guestbook"> Guestbook </NavbarLink>
@@ -22,6 +23,69 @@ import NavbarLink from "./navbar-link.astro";
       </NavbarLink>
     </nav>
 
-    <ThemeToggle />
+    <div class="ml-auto flex items-center gap-2">
+      <ThemeToggle />
+
+      <button
+        type="button"
+        class="md:hidden inline-flex h-9 w-9 items-center justify-center rounded border"
+        data-menu-button
+        aria-controls="mobile-nav"
+        aria-expanded="false"
+        aria-label="Toggle navigation"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          class="h-5 w-5"
+          aria-hidden="true"
+        >
+          <path d="M3 6h18M3 12h18M3 18h18" />
+        </svg>
+      </button>
+    </div>
   </div>
+
+  <nav
+    id="mobile-nav"
+    data-mobile-nav
+    class="hidden md:hidden border-t bg-accent/95 backdrop-blur-sm"
+  >
+    <div class="max-w-4xl mx-auto px-4 py-3 flex flex-col gap-3">
+      <NavbarLink href="/blog"> Blog </NavbarLink>
+      <NavbarLink href="/uses"> Uses </NavbarLink>
+      <NavbarLink href="/guestbook"> Guestbook </NavbarLink>
+      <NavbarLink
+        href="https://github.com/bobur-ops/BoburKomilov-homepage"
+        target="_blank"
+      >
+        Source
+      </NavbarLink>
+    </div>
+  </nav>
+
+  <script>
+    const menuButton = document.querySelector("[data-menu-button]");
+    const mobileNav = document.querySelector("[data-mobile-nav]");
+
+    if (menuButton instanceof HTMLButtonElement && mobileNav instanceof HTMLElement) {
+      menuButton.addEventListener("click", () => {
+        const isExpanded = menuButton.getAttribute("aria-expanded") === "true";
+        menuButton.setAttribute("aria-expanded", String(!isExpanded));
+        mobileNav.classList.toggle("hidden", isExpanded);
+      });
+
+      mobileNav.querySelectorAll("a").forEach((link) => {
+        link.addEventListener("click", () => {
+          menuButton.setAttribute("aria-expanded", "false");
+          mobileNav.classList.add("hidden");
+        });
+      });
+    }
+  </script>
 </div>
